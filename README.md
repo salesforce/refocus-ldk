@@ -23,7 +23,7 @@ The LDK lets you build and test a lens quickly and iteratively, *without* having
 ### Install
 
 ```
-git clone https://git.soma.salesforce.com/igoldstein/refocus-ldk
+git clone https://github.com/salesforce/refocus-ldk.git
 cd refocus-ldk
 npm install
 ```
