@@ -1,0 +1,61 @@
+{
+  "name": "refocus-ldk",
+  "config": {
+    "lens": ""
+  },
+  "version": "0.0.2",
+  "description": "Refocus Lens Developer Kit",
+  "scripts": {
+    "build": "npm run compile && npm run zip",
+    "compile": "webpack --config webpack.lens.config.js --progress --colors --optimize-dedupe",
+    "compile-watch": "webpack --config webpack.lens.config.js --progress --colors --watch",
+    "create": "gulp create --lens=$npm_package_config_lens",
+    "ldk-compile": "webpack --config webpack.ldk.config.js --progress --colors --watch",
+    "prototype": "node . --lens=$npm_package_config_lens",
+    "test": "mocha --recursive ./Lenses/$npm_package_config_lens/test/**/*.js",
+    "zip": "gulp zip --lens=$npm_package_config_lens"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/salesforce/refocus-ldk"
+  },
+  "keywords": [],
+  "author": "Ian Goldstein",
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "bugs": {
+    "url": "https://github.com/salesforce/refocus-ldk/issues"
+  },
+  "homepage": "https://github.com/salesforce/refocus-ldk",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "cross-env": "^1.0.6",
+    "css-loader": "^0.23.1",
+    "d3-array": "^1.0.0",
+    "d3-collection": "^1.0.0",
+    "d3-random": "^1.0.0",
+    "dateformat": "^1.0.12",
+    "eslint": "^1.10.3",
+    "express": "^4.14.0",
+    "gulp": "^3.9.1",
+    "gulp-mocha": "^2.2.0",
+    "gulp-zip": "^3.2.0",
+    "handlebars-template-loader": "^0.7.0",
+    "jsdom": "^9.4.1",
+    "jsdom-global": "^2.0.0",
+    "json-loader": "^0.5.4",
+    "mocha": "^2.5.3",
+    "rimraf": "^2.4.3",
+    "script-loader": "^0.7.0",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.1",
+    "worker-loader": "^0.7.1"
+  },
+  "dependencies": {
+    "cookie-jeep": "^0.1.0",
+    "fs": "0.0.2",
+    "handlebars": "^4.0.5",
+    "handlebars-loader": "^1.3.0",
+    "mustache": "^2.2.1",
+    "mustache-loader": "^0.3.1"
+  }
+}

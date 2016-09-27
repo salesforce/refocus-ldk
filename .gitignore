@@ -1,0 +1,6 @@
+dist
+Lenses
+node_modules
+static
+.idea
+*.iml

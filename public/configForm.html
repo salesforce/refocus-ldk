@@ -1,0 +1,180 @@
+<!--
+ Copyright (c) 2016, salesforce.com, inc.
+ All rights reserved.
+ Licensed under the BSD 3-Clause license.
+ For full license text, see LICENSE.txt file in the repo root or
+ https://opensource.org/licenses/BSD-3-Clause
+-->
+<html>
+  <head>
+    <title>Refocus Lens Developer Kit</title>
+    <link href="bootstrap.min.css" rel="stylesheet"/>
+    <script src="cookie-jeep.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="jumbotron">
+        <h1 class="display-3">Refocus Lens Developer Kit</h1>
+        <p class="lead">LDK-Prototyper Configuration</p>
+      </div>
+      <form action="index.html">
+        <div class="form-group row">
+          <label for="load-dataset" class="col-sm-2 col-form-label">
+            Dataset
+          </label>
+          <div class="col-sm-4">
+            <select name="load-dataset" id="load-dataset" class="form-control">
+              <option value="sample-sysinfra.json">
+                System Infrastructure Simulation
+              </option>
+            </select>
+            <p class="small form-text text-muted">
+              Select the hierarchy dataset you want to load.
+            </p>
+          </div>
+          <label for="load-time" class="col-sm-2 col-form-label">
+            Hierarchy Load Time
+          </label>
+          <div class="col-sm-4">
+            <select name="load-time" id="load-time" class="form-control">
+              <option value="250">¼ second</option>
+              <option value="500">½ second</option>
+              <option value="1000">1 second</option>
+              <option value="2000">2 seconds</option>
+              <option value="10000">10 seconds</option>
+            </select>
+            <p class="small form-text text-muted">
+              The hierarchy data loads very quickly here in the LDK Prototyper,
+              but you can simulate a slower load time, e.g. if you want to make
+              sure your "loading..." message or animation is rendering
+              correctly.
+            </p>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="realtime-interval" class="col-sm-2 col-form-label">
+            Realtime Event Interval
+          </label>
+          <div class="col-sm-4">
+            <select name="realtime-interval" id="realtime-interval"
+              class="form-control">
+              <option value="0">Off</option>
+              <option value="1000">Every second</option>
+              <option value="5000">Every 5 seconds</option>
+              <option value="10000">Every 10 seconds</option>
+              <option value="30000">Every 30 seconds</option>
+            </select>
+            <p class="small form-text text-muted">
+              Simulate the flow of realtime sample and subject changes to see
+              how your lens responds to realtime events.
+            </p>
+          </div>
+        </div>
+        <h5>
+          Specify the maximum number of changes for each batch of realtime
+          events.
+        </h5>
+        <div class="form-group row">
+          <label for="realtime-max-sample-add" class="col-sm-2 col-form-label">
+            Max Sample Add
+          </label>
+          <div class="col-sm-2">
+            <input class="form-control" type="number"
+              id="realtime-max-sample-add" name="realtime-max-sample-add"/>
+          </div>
+          <label for="realtime-max-sample-remove"
+            class="col-sm-2 col-form-label">
+            Max Sample Delete
+          </label>
+          <div class="col-sm-2">
+            <input class="form-control" type="number"
+              id="realtime-max-sample-remove"
+              name="realtime-max-sample-remove"/>
+          </div>
+          <label for="realtime-max-sample-update"
+            class="col-sm-2 col-form-label">
+            Max Sample Update
+          </label>
+          <div class="col-sm-2">
+            <input class="form-control" type="number"
+              id="realtime-max-sample-update"
+              name="realtime-max-sample-update"/>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="realtime-max-subject-add"
+            class="col-sm-2 col-form-label">
+            Max Subject Add
+          </label>
+          <div class="col-sm-2">
+            <input class="form-control" type="number"
+              id="realtime-max-subject-add" name="realtime-max-subject-add"/>
+          </div>
+          <label for="realtime-max-subject-remove"
+            class="col-sm-2 col-form-label">
+            Max Subject Delete
+          </label>
+          <div class="col-sm-2">
+            <input class="form-control" type="number"
+              id="realtime-max-subject-remove"
+              name="realtime-max-subject-remove"/>
+          </div>
+          <label for="realtime-max-subject-update"
+            class="col-sm-2 col-form-label">
+            Max Subject Update
+          </label>
+          <div class="col-sm-2">
+            <input class="form-control" type="number"
+              id="realtime-max-subject-update"
+              name="realtime-max-subject-update"/>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">
+          Save
+        </button>
+      </form>
+    </div><!-- container -->
+    <script>
+      var conf = JSON.parse(cookies.read('ldk-conf'));
+      var loadDatasetOptions = document.getElementById('load-dataset')
+        .options;
+      for (var i = 0; i < loadDatasetOptions.length; i++) {
+        if (loadDatasetOptions[i].value === conf.load.dataset) {
+          loadDatasetOptions[i].selected = true;
+        } else {
+          delete loadDatasetOptions[i].selected;
+        }
+      };
+      var loadTimeOptions = document.getElementById('load-time')
+        .options;
+      for (var i = 0; i < loadTimeOptions.length; i++) {
+        if (+loadTimeOptions[i].value === conf.load.time) {
+          loadTimeOptions[i].selected = true;
+        } else {
+          delete loadTimeOptions[i].selected;
+        }
+      };
+      var intervalOptions = document.getElementById('realtime-interval')
+        .options;
+      for (var i = 0; i < intervalOptions.length; i++) {
+        if (+intervalOptions[i].value === conf.realtime.interval) {
+          intervalOptions[i].selected = true;
+        } else {
+          delete intervalOptions[i].selected;
+        }
+      };
+      document.getElementById('realtime-max-sample-add').value =
+        conf.realtime.samples.maxAdd;
+      document.getElementById('realtime-max-sample-remove').value =
+        conf.realtime.samples.maxRemove;
+      document.getElementById('realtime-max-sample-update').value =
+        conf.realtime.samples.maxUpdate;
+      document.getElementById('realtime-max-subject-add').value =
+        conf.realtime.subjects.maxAdd;
+      document.getElementById('realtime-max-subject-remove').value =
+        conf.realtime.subjects.maxRemove;
+      document.getElementById('realtime-max-subject-update').value =
+        conf.realtime.subjects.maxUpdate;
+    </script>
+  </body>
+</html>
