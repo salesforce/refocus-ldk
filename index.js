@@ -21,7 +21,7 @@ app.get('/', function (req, res) {
   res.sendFile('index.html', { root: __dirname });
 });
 
-app.listen(3000, function () {
+app.listen(PORT, function () {
   console.log(`The LDK-Prototyper for your "${lensInfo.name}" lens is ` +
     `running at http://localhost:${PORT}`);
 });
