@@ -2,7 +2,7 @@
 
 ## Refocus Lens Developer Kit
 
-The Refocus Lens Developer Kit (LDK) is a toolkit for developing, testing and packaging Refocus lenses for deployment.
+The Refocus Lens Developer Kit (LDK) is a toolkit for developing, testing and packaging [Refocus](https://github.com/salesforce/refocus) lenses for deployment.
 
 - [Introduction](#introduction)
 - [Install](#install)
@@ -16,7 +16,7 @@ The Refocus Lens Developer Kit (LDK) is a toolkit for developing, testing and pa
 
 ### Introduction
 
-Refocus is a platform for visualizing the status of some set of subjects under monitoring. The platform does not attempt to provide visualizations to satisfy every type of user. Instead, it allows users to install add-on modules, which we call *lenses*, to provide new visualizations. Each lens provides a new visualization to help users understand their data in a new way. 
+[Refocus](https://github.com/salesforce/refocus) is a platform for visualizing the status of some set of subjects under monitoring. The platform does not attempt to provide visualizations to satisfy every type of user. Instead, it allows users to install add-on modules, which we call *lenses*, to provide new visualizations. Each lens provides a new visualization to help users understand their data in a new way. 
 
 The LDK lets you build and test a lens quickly and iteratively, *without* having to install it into a running Refocus application. The LDK also provides some dummy datasets and simulates realtime events so you can test how your lens handles hierarchy data and realtime events.
 
