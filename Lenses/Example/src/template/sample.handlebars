@@ -1,0 +1,40 @@
+<div class="sample" id="{{id}}">
+  <a class="top-link" href="#lens">^</a>
+  <div>name: {{name}}</div>
+  <div>id: {{id}}</div>
+  <div>isDeleted: {{isDeleted}}</div>
+  <div>messageBody: {{messageBody}}</div>
+  <div>messageCode: {{messageCode}}</div>
+  <div>status: {{status}}</div>
+  <div>previousStatus: {{previousStatus}}</div>
+  <div>value: {{value}}</div>
+  <div>provider: {{provider.name}}</div>
+  <div>createdAt: {{createdAt}}</div>
+  <div>updatedAt: {{updatedAt}}</div>
+  <div>statusChangedAt: {{statusChangedAt}}</div>
+  <div>aspectId: {{aspectId}}</div>
+  <div>aspect: <a href="#{{aspectId}}">{{aspect.name}}</a></div>
+
+  <div class="{{listClass relatedLinks}}">
+    <span>relatedLinks:</span>
+    {{#if relatedLinks}}
+      <ul>
+        {{#each relatedLinks}}
+          <li><a href="{{this.url}}">{{this.name}}</a></li>
+        {{/each}}
+      </ul>
+    {{/if}}
+  </div>
+
+  <div class="{{listClass apiLinks}}">
+    <span>apiLinks:</span>
+    {{#if apiLinks}}
+      <ul>
+        {{#each apiLinks}}
+          <li><a href="{{this.href}}">{{this.method}}</a></li>
+        {{/each}}
+      </ul>
+    {{/if}}
+  </div>
+
+</div>

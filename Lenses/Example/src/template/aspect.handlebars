@@ -1,0 +1,54 @@
+<div class="aspect" id="{{id}}">
+  <a class="top-link" href="#lens">^</a>
+  <div>name: {{name}}</div>
+  <div>description: {{description}}</div>
+  <div>helpEmail: <a href="mailto:{{helpEmail}}">{{helpEmail}}</a></div>
+  <div>helpUrl: <a href="{{helpUrl}}">{{helpUrl}}</a></div>
+  <div>id: {{id}}</div>
+  <div>imageUrl: {{imageUrl}}</div>
+  <div>isPublished: {{isPublished}}</div>
+  <div>criticalRange: {{criticalRange}}</div>
+  <div>warningRange: {{warningRange}}</div>
+  <div>infoRange: {{infoRange}}</div>
+  <div>okRange: {{okRange}}</div>
+  <div>timeout: {{timeout}}</div>
+  <div>valueLabel: {{valueLabel}}</div>
+  <div>valueType: {{valueType}}</div>
+  <div>createdBy: {{createdBy.name}}</div>
+  <div>createdAt: {{createdAt}}</div>
+  <div>updatedAt: {{updatedAt}}</div>
+
+  <div class="{{listClass tags}}">
+    <span>tags:</span>
+    {{#if tags}}
+      <ul>
+        {{#each tags}}
+          <li>{{this}}</li>
+        {{/each}}
+      </ul>
+    {{/if}}
+  </div>
+
+  <div class="{{listClass relatedLinks}}">
+    <span>relatedLinks:</span>
+    {{#if relatedLinks}}
+      <ul>
+        {{#each relatedLinks}}
+          <li><a href="{{this.url}}">{{this.name}}</a></li>
+        {{/each}}
+      </ul>
+    {{/if}}
+  </div>
+
+  <div class="{{listClass apiLinks}}">
+    <span>apiLinks:</span>
+    {{#if apiLinks}}
+      <ul>
+        {{#each apiLinks}}
+          <li><a href="{{this.href}}">{{this.method}}</a></li>
+        {{/each}}
+      </ul>
+    {{/if}}
+  </div>
+
+</div>

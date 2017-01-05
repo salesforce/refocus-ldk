@@ -1,0 +1,107 @@
+/**
+ * lens.css
+ *
+ * The stylesheet for the Example lens.
+ */
+
+#lens {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 40px 1em;
+  max-width: 1500px;
+}
+
+#loading {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+}
+
+#nav {
+  text-align: center;
+  border: thin solid;
+  padding: .2em;
+  margin-bottom: 1em;
+}
+
+#nav a {
+  margin: 0 1em;
+  font-size: 1.1em;
+}
+
+.subject, .aspect, .sample {
+  margin: 1em 0;
+  position: relative;
+}
+
+.aspect, .sample {
+  border: thin solid;
+  padding: 1em;
+}
+
+.subject {
+  display: flex;
+  padding: 0;
+}
+
+.subject > div {
+  flex: 1;
+  border: thin solid black;
+  padding: 1em;
+}
+
+.subject > div.samples {
+  border-left: 1px;
+}
+
+ul {
+  list-style: none;
+}
+
+.multiline ul {
+  margin: 0;
+  padding: 0 1em;
+}
+
+.inline ul {
+  display: inline;
+  padding: 0;
+}
+.inline li {
+  display: inline;
+}
+
+.inline li::after {
+  content: ",";
+}
+
+.inline li:last-child::after {
+  content: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.top-link {
+  border: thin solid;
+  width: 1em;
+  height: 1em;
+  position: absolute;
+  right: -1px;
+  top: -1px;
+  text-align: center;
+  font-size: 1.1em;
+}
+
+.subject .top-link {
+  right: 0;
+  top: 0;
+}
