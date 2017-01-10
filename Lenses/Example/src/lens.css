@@ -32,62 +32,58 @@
 
 .subject, .aspect, .sample {
   margin: 1em 0;
+  border: thin solid;
+}
+
+.heading {
+  border-bottom: thin solid;
+  text-align: center;
+  padding: 1em;
   position: relative;
 }
 
-.aspect, .sample {
-  border: thin solid;
-  padding: 1em;
-}
-
-.subject {
-  display: flex;
-  padding: 0;
-}
-
-.subject > div {
-  flex: 1;
-  border: thin solid black;
-  padding: 1em;
-}
-
-.subject > div.samples {
-  border-left: 1px;
-}
-
-ul {
-  list-style: none;
-}
-
-.multiline ul {
+.heading h4 {
   margin: 0;
-  padding: 0 1em;
 }
 
-.inline ul {
+.subject .body {
+  display: flex;
+}
+
+.subject .column {
+  flex: 1;
+}
+
+.subject .column.samples {
+  border-left: thin solid;
+}
+
+/* override lightning css */
+ul {
+  margin: 0;
+  padding-left: 1em;
+  list-style-type: disc;
+}
+
+/* override lightning css */
+.subject .column, .sample .body, .aspect .body {
+  padding: 1em;
+}
+
+ul.inline {
   display: inline;
   padding: 0;
 }
-.inline li {
+ul.inline li {
   display: inline;
 }
 
-.inline li::after {
+ul.inline li::after {
   content: ",";
 }
 
-.inline li:last-child::after {
+ul.inline li:last-child::after {
   content: none;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-a:hover {
-  font-weight: bold;
-  text-decoration: none;
 }
 
 .top-link {
@@ -99,9 +95,35 @@ a:hover {
   top: -1px;
   text-align: center;
   font-size: 1.1em;
+  color: inherit;
+  text-decoration: none;
 }
 
-.subject .top-link {
-  right: 0;
-  top: 0;
+.top-link:hover {
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.OK {
+  color: green;
+}
+
+.Info {
+  color: blue;
+}
+
+.Warning {
+  color: yellow;
+}
+
+.Critical {
+  color: red;
+}
+
+.Timeout {
+  color: gray;
+}
+
+.Invalid {
+  color: gray;
 }

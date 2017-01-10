@@ -1,73 +1,76 @@
 <div class="subject" id="{{id}}">
-  <a class="top-link" href="#lens">^</a>
-  <div>
-    <div>absolutePath: {{absolutePath}}</div>
-    <div>childCount: {{childCount}}</div>
-    <div>description: {{description}}</div>
-    <div>helpEmail: <a href="mailto:{{helpEmail}}">{{helpEmail}}</a></div>
-    <div>helpUrl: <a href="{{helpUrl}}">{{helpUrl}}</a></div>
-    <div>hierarchyLevel: {{hierarchyLevel}}</div>
-    <div>id: {{id}}</div>
-    <div>imageUrl: {{imageUrl}}</div>
-    <div>isDeleted: {{isDeleted}}</div>
-    <div>isPublished: {{isPublished}}</div>
-    <div>name: {{name}}</div>
-    <div>parentId: {{parentId}}</div>
-    <div>parentAbsolutePath: <a href="#{{parentId}}">{{parentAbsolutePath}}</a></div>
-    <div>createdBy: {{createdBy.name}}</div>
-    <div>createdAt: {{createdAt}}</div>
-    <div>updatedAt: {{updatedAt}}</div>
-
-    <div class="{{listClass tags}}">
-      <span>tags:</span>
-      {{#if tags}}
-        <ul>
-          {{#each tags}}
-            <li>{{this}}</li>
-          {{/each}}
-        </ul>
-      {{/if}}
-    </div>
-
-    <div class="{{listClass relatedLinks}}">
-      <span>relatedLinks:</span>
-      {{#if relatedLinks}}
-        <ul>
-          {{#each relatedLinks}}
-            <li><a href="{{this.url}}">{{this.name}}</a></li>
-          {{/each}}
-        </ul>
-      {{/if}}
-    </div>
-
-    <div class="{{listClass apiLinks}}">
-      <span>apiLinks:</span>
-      {{#if apiLinks}}
-        <ul>
-          {{#each apiLinks}}
-            <li><a href="{{this.href}}">{{this.method}}</a></li>
-          {{/each}}
-        </ul>
-      {{/if}}
-    </div>
-
-    <div class="{{listClass children}}">
-      <span>children:</span>
-      {{#if children}}
-        <ul>
-          {{#each children}}
-            <li><a href="#{{this.id}}">{{this.name}}</a></li>
-          {{/each}}
-        </ul>
-      {{/if}}
-    </div>
-
+  <div class="heading">
+    <a class="top-link" href="#lens">^</a>
+    <h4>{{absolutePath}}</h4>
   </div>
-  {{#if samples}}
-    <div class="samples">
-      {{#each samples}}
-        <div><a href="#{{this.id}}">{{this.aspect.name}}: {{this.status}}</a></div>
-      {{/each}}
+  <div class="body">
+    <div class="column">
+      <ul>
+        <li>absolutePath: {{absolutePath}}</li>
+        <li>apiLinks:
+          {{#if apiLinks}}
+            <ul class="{{listClass apiLinks}}">
+              {{#each apiLinks}}
+                <li><a href="{{this.href}}">{{this.method}}</a></li>
+              {{/each}}
+            </ul>
+          {{/if}}
+        </li>
+        <li>childCount: {{childCount}}</li>
+        <li>children:
+          {{#if children}}
+            <ul class="{{listClass children}}">
+              {{#each children}}
+                <li><a href="#{{this.id}}">{{this.name}}</a></li>
+              {{/each}}
+            </ul>
+          {{/if}}
+        </li>
+        <li>createdAt: {{createdAt}}</li>
+        <li>createdBy: {{createdBy.name}}</li>
+        <li>description: {{description}}</li>
+        <li>helpEmail: <a href="mailto:{{helpEmail}}">{{helpEmail}}</a></li>
+        <li>helpUrl: <a href="{{helpUrl}}">{{helpUrl}}</a></li>
+        <li>hierarchyLevel: {{hierarchyLevel}}</li>
+        <li>id: {{id}}</li>
+        <li>imageUrl: {{imageUrl}}</li>
+        <li>isDeleted: {{isDeleted}}</li>
+        <li>isPublished: {{isPublished}}</li>
+        <li>name: {{name}}</li>
+        <li>parentAbsolutePath: <a href="#{{parentId}}">{{parentAbsolutePath}}</a></li>
+        <li>parentId: {{parentId}}</li>
+        <li>relatedLinks:
+          {{#if relatedLinks}}
+            <ul class="{{listClass relatedLinks}}">
+              {{#each relatedLinks}}
+                <li><a href="{{this.url}}">{{this.name}}</a></li>
+              {{/each}}
+            </ul>
+          {{/if}}
+        </li>
+        <li>tags:
+          {{#if tags}}
+            <ul class="{{listClass tags}}">
+              {{#each tags}}
+                <li>{{this}}</li>
+              {{/each}}
+            </ul>
+          {{/if}}
+        </li>
+        <li>updatedAt: {{updatedAt}}</li>
+      </ul>
     </div>
-  {{/if}}
+    {{#if samples}}
+      <div class="column samples">
+        <ul>
+          {{#each samples}}
+            <li>
+              <a href="#{{this.id}}">{{this.aspect.name}}</a>:
+              <span class="{{this.status}}">{{this.status}}</span>
+            </li>
+          {{/each}}
+        </ul>
+      </div>
+    {{/if}}
+  </div>
 </div>

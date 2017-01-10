@@ -1,6 +1,8 @@
 'use strict';
 require('./lens.css');
-require('./lib/jquery.min.js');
+
+// Put any external libraries in the lib directory and require them here
+// require('./lib/example.js');
 
 const handlebars = require('handlebars-template-loader/runtime');
 const loadingTemplate = require('./template/loading.handlebars');
@@ -9,7 +11,7 @@ handlebars.registerPartial('subject', require('./template/subject.handlebars'));
 handlebars.registerPartial('aspect', require('./template/aspect.handlebars'));
 handlebars.registerPartial('sample', require('./template/sample.handlebars'));
 
-handlebars.registerHelper('listClass', function(array) {
+handlebars.registerHelper('listClass', (array) => {
   if (array == null) return '';
   if (array.length <= 3) return 'inline';
   else return 'multiline';
@@ -42,9 +44,14 @@ function onHierarchyLoad(evt) {
  * Process the hierarchy data into a data structure optimized for this lens.
  */
 function preprocess(node) {
+  formatDateFields(node);
   subjects.set(node.absolutePath, node);
   if (node.samples) {
     node.samples.forEach((sample) => {
+      sample.subjectId = node.id;
+      sample.subjectAbsolutePath = node.absolutePath;
+      formatDateFields(sample);
+      formatDateFields(sample.aspect);
       samples.set(sample.name, sample);
       aspects.set(sample.aspect.name, sample.aspect);
     })
@@ -55,6 +62,16 @@ function preprocess(node) {
     })
   }
 } // preprocess
+
+function formatDateFields(object) {
+  let fields = ['createdAt', 'updatedAt', 'statusChangedAt'];
+  fields.forEach((field) => {
+    let currentValue = object[field];
+    if (currentValue)
+      object[field] = new Date(currentValue).toLocaleString();
+  });
+} // formatDateFields
+
 
 /**
  * This function modifies the DOM.
@@ -133,6 +150,6 @@ const realtimeChangeHandler = {
 function getSubjectAndIndex(sample) {
   let subjectPath = sample.name.split('|')[0];
   let subject = subjects.get(subjectPath);
-  let index = subject.samples.findIndex( (s) => {return s.name == sample.name;} );
+  let index = subject.samples.findIndex( (s) => s.name === sample.name );
   return [subject, index];
 } // getSubjectAndIndex
