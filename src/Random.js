@@ -294,6 +294,7 @@ module.exports = class Random {
     const s = {
       absolutePath: `${parentAbsolutePath}.${name}`,
       description: this.messageBody(),
+      geolocation: [this.intBetween(-90, 90), this.intBetween(-180, 180)],
       helpEmail: `${name}@foo.com`,
       helpUrl: `http://${name}.foo.com`,
       name,
