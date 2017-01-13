@@ -1,47 +1,103 @@
-'use strict';
+/**
+ * This is the main entry point for the lens. When you compile and build the
+ * lens using the LDK, webpack generates a single file which has all the
+ * external modules built right in--you can read more about webpack at
+ * https://webpack.github.io/.
+ */
+
+/*
+ * Curious about why we 'use strict'? Check out 
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode.
+ */
+'use strict'; 
+
+/*
+ * Load other modules, stylesheets, templates, etc. using "require(...)".
+ *
+ * We recommend putting external libraries into the ./lib directory. For
+ * example, if you needed jquery in your lens, you could add the (minified)
+ * javascript file under the ./lib directory then load it here, like this:
+ *
+ *   require('./lib/jquery-3.1.1.min');
+ *
+ * Note that you don't need to include the ".js" suffix in your "require"
+ * command for javascript files.
+ */
 require('./lens.css');
 
-// Put any external libraries in the lib directory and require them here
-// require('./lib/example.js');
-
+/*
+ * We use handlebars for templates--you can read more about handlebars at
+ * http://handlebarsjs.com/.
+ */
 const handlebars = require('handlebars-template-loader/runtime');
 const loadingTemplate = require('./template/loading.handlebars');
 const mainTemplate = require('./template/main.handlebars');
-handlebars.registerPartial('subject', require('./template/subject.handlebars'));
+handlebars.registerPartial('subject',
+  require('./template/subject.handlebars'));
 handlebars.registerPartial('aspect', require('./template/aspect.handlebars'));
 handlebars.registerPartial('sample', require('./template/sample.handlebars'));
 
 handlebars.registerHelper('listClass', (array) => {
-  if (array == null) return '';
-  if (array.length <= 3) return 'inline';
-  else return 'multiline';
+  if (array == null) {
+    return '';
+  }
+
+  if (array.length <= 3) {
+    return 'inline';
+  } else {
+    return 'multiline';
+  }
 });
 
+/*
+ * Just as a convenience, let's define a constant for the container div inside
+ * of which we will add all our lens elements.
+ */
+const LENS = document.getElementById('lens');
+
+/*
+ * We're going to store all the subjects, aspects and samples in these Maps.
+ */
 let subjects = new Map();
 let aspects = new Map();
 let samples = new Map();
 
-const LENS = document.getElementById('lens');
-
+/*
+ * Once the lens is loaded, we register event listeners for some of the other
+ * refocus events.
+ */
 LENS.addEventListener('refocus.lens.load', () => {
   LENS.addEventListener('refocus.lens.hierarchyLoad', onHierarchyLoad);
   LENS.addEventListener('refocus.lens.realtime.change', onRealtimeChange);
+
+  /*
+   * Display a "Loading..." indicator while we wait for the browser to get all
+   * the hierarchy data (which is loaded asynchronously). We'll get rid of this
+   * "Loading..." indicator once we're able to render actual subjects and
+   * aspects and samples.
+   */
   LENS.innerHTML = loadingTemplate();
 });
 
 /**
  * Handle the refocus.lens.hierarchyLoad event. The hierarchy JSON is stored
- * in evt.detail. Preprocess the hierarchy, hide the loading indicator, then call draw.
+ * in evt.detail. Here, we call "preprocess" to manipulate the hierarchy data,
+ * we hide the loading indicator, then we call our "draw" function to add
+ * elements to DOM which will represent our subjects, aspects and samples.
  */
 function onHierarchyLoad(evt) {
   console.log(new Date(), '#lens => refocus.lens.hierarchyLoad');
-  preprocess(evt.detail);
+  preprocess(evt.detail); // Manipulate the hierarchy data.
+
+  // Hide the "Loading..." indicator now that we have real data to render.
   document.getElementById('loading').setAttribute('hidden', 'true');
+
   draw();
 } // onHierarchyLoad
 
 /**
- * Process the hierarchy data into a data structure optimized for this lens.
+ * Preprocess the hierarchy data: organize the data into some structure which
+ * is optimized for how you want render it on the page.
  */
 function preprocess(node) {
   formatDateFields(node);
@@ -54,12 +110,11 @@ function preprocess(node) {
       formatDateFields(sample.aspect);
       samples.set(sample.name, sample);
       aspects.set(sample.aspect.name, sample.aspect);
-    })
+    });
   }
+
   if (node.children) {
-    node.children.forEach((child) => {
-      preprocess(child);
-    })
+    node.children.forEach(preprocess);
   }
 } // preprocess
 
@@ -72,9 +127,8 @@ function formatDateFields(object) {
   });
 } // formatDateFields
 
-
 /**
- * This function modifies the DOM.
+ * This function modifies the DOM by passing the data into our template(s).
  */
 function draw() {
   let context = {
@@ -100,13 +154,13 @@ function onRealtimeChange(evt) {
 
   evt.detail.forEach((chg) => {
     if (chg['sample.add']) {
-      realtimeChangeHandler.onSampleAdd(chg['sample.add'])
+      realtimeChangeHandler.onSampleAdd(chg['sample.add']);
     } else if (chg['sample.remove']) {
-      realtimeChangeHandler.onSampleRemove(chg['sample.remove'])
+      realtimeChangeHandler.onSampleRemove(chg['sample.remove']);
     } else if (chg['sample.update']) {
       realtimeChangeHandler.onSampleUpdate(chg['sample.update']);
     } else if (chg['subject.add']) {
-      realtimeChangeHandler.onSubjectAdd(chg['subject.add'])
+      realtimeChangeHandler.onSubjectAdd(chg['subject.add']);
     } else if (chg['subject.remove']) {
       realtimeChangeHandler.onSubjectRemove(chg['subject.remove'])
     } else if (chg['subject.update']) {
@@ -114,7 +168,7 @@ function onRealtimeChange(evt) {
     }
   }); // evt.detail.forEach
 
-  // Now that we've processed all these changes, draw!
+  // Now that we've processed all these changes, call draw!
   draw();
 } // onRealtimeChange
 
