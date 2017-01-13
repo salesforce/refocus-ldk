@@ -20,6 +20,8 @@ The Refocus Lens Developer Kit (LDK) is a toolkit for developing, testing and pa
 
 The LDK lets you build and test a lens quickly and iteratively, *without* having to install it into a running Refocus application. The LDK also provides some dummy datasets and simulates realtime events so you can test how your lens handles hierarchy data and realtime events.
 
+The LDK comes with an "Example" lens pre-installed in the `./Lenses` directory--you can use this to get familiar with how a lens works or as a jumping-off point for developing your own lens.
+
 ### Install
 
 ```
