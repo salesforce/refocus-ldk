@@ -1,0 +1,44 @@
+<div class="sample" id="{{id}}">
+  <div class="heading">
+    <a class="top-link" href="#lens">^</a>
+    <h4>{{name}}</h4>
+  </div>
+  <div class="body">
+    <ul>
+      <li>apiLinks:
+        {{#if apiLinks}}
+          <ul class="{{listClass apiLinks}}">
+            {{#each apiLinks}}
+              <li><a href="{{this.href}}">{{this.method}}</a></li>
+            {{/each}}
+          </ul>
+        {{/if}}
+      </li>
+      <li>aspect: <a href="#{{aspectId}}">{{aspect.name}}</a></li>
+      <li>aspectId: {{aspectId}}</li>
+      <li>createdAt: {{createdAt}}</li>
+      <li>id: {{id}}</li>
+      <li>isDeleted: {{isDeleted}}</li>
+      <li>messageBody: {{messageBody}}</li>
+      <li>messageCode: {{messageCode}}</li>
+      <li>name: {{name}}</li>
+      <li>previousStatus: {{previousStatus}}</li>
+      <li>provider: {{provider.name}}</li>
+      <li>relatedLinks:
+        {{#if relatedLinks}}
+          <ul class="{{listClass relatedLinks}}">
+            {{#each relatedLinks}}
+              <li><a href="{{this.url}}">{{this.name}}</a></li>
+            {{/each}}
+          </ul>
+        {{/if}}
+      </li>
+      <li>status: <span class="status-{{this.status}}">{{this.status}}</span></li>
+      <li>statusChangedAt: {{statusChangedAt}}</li>
+      <li>subject: <a href="#{{subjectId}}">{{subjectAbsolutePath}}</a></li>
+      <li>updatedAt: {{updatedAt}}</li>
+      <li>value: {{value}}</li>
+    </ul>
+  </div>
+
+</div>

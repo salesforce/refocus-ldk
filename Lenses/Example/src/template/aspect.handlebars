@@ -1,0 +1,55 @@
+<div class="aspect" id="{{id}}">
+  <div class="heading">
+    <a class="top-link" href="#lens">^</a>
+    <h4>{{name}}</h4>
+  </div>
+  <div class="body">
+    <ul>
+      <li>apiLinks:
+        {{#if apiLinks}}
+          <ul class="{{listClass apiLinks}}">
+            {{#each apiLinks}}
+              <li><a href="{{this.href}}">{{this.method}}</a></li>
+            {{/each}}
+          </ul>
+        {{/if}}
+      </li>
+      <li>createdAt: {{createdAt}}</li>
+      <li>createdBy: {{createdBy.name}}</li>
+      <li>criticalRange: {{criticalRange}}</li>
+      <li>description: {{description}}</li>
+      <li>helpEmail: <a href="mailto:{{helpEmail}}">{{helpEmail}}</a></li>
+      <li>helpUrl: <a href="{{helpUrl}}">{{helpUrl}}</a></li>
+      <li>id: {{id}}</li>
+      <li>imageUrl: {{imageUrl}}</li>
+      <li>infoRange: {{infoRange}}</li>
+      <li>isPublished: {{isPublished}}</li>
+      <li>name: {{name}}</li>
+      <li>okRange: {{okRange}}</li>
+      <li>relatedLinks:
+        {{#if relatedLinks}}
+          <ul class="{{listClass relatedLinks}}">
+            {{#each relatedLinks}}
+              <li><a href="{{this.url}}">{{this.name}}</a></li>
+            {{/each}}
+          </ul>
+        {{/if}}
+      </li>
+      <li>tags:
+        {{#if tags}}
+          <ul class="{{listClass tags}}">
+            {{#each tags}}
+              <li>{{this}}</li>
+            {{/each}}
+          </ul>
+        {{/if}}
+      </li>
+      <li>timeout: {{timeout}}</li>
+      <li>updatedAt: {{updatedAt}}</li>
+      <li>valueLabel: {{valueLabel}}</li>
+      <li>valueType: {{valueType}}</li>
+      <li>warningRange: {{warningRange}}</li>
+    </ul>
+  </div>
+
+</div>

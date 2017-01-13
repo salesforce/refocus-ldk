@@ -1,0 +1,26 @@
+<div id="nav">
+  <a href="#subjects">Subjects</a>
+  <a href="#aspects">Aspects</a>
+  <a href="#samples">Samples</a>
+</div>
+
+<div id="subjects">
+  <h3>Subjects</h3>
+  {{#each subjects}}
+    {{> subject}}
+  {{/each}}
+</div>
+
+<div id="aspects">
+  <h3>Aspects</h3>
+  {{#each aspects}}
+    {{> aspect}}
+  {{/each}}
+</div>
+
+<div id="samples">
+  <h3>Samples</h3>
+  {{#each samples}}
+    {{> sample}}
+  {{/each}}
+</div>
