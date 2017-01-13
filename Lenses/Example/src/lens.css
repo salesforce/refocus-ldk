@@ -2,6 +2,7 @@
  * lens.css
  *
  * The stylesheet for the Example lens.
+ * All rules should be prefixed by #lens
  */
 
 #lens {
@@ -11,82 +12,83 @@
   max-width: 1500px;
 }
 
-#loading {
+#lens #loading {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%,-50%);
 }
 
-#nav {
+#lens #nav {
   text-align: center;
   border: thin solid;
   padding: .2em;
   margin-bottom: 1em;
 }
 
-#nav a {
+#lens #nav a {
   margin: 0 1em;
   font-size: 1.1em;
 }
 
-.subject, .aspect, .sample {
+#lens .subject, #lens .aspect, #lens .sample {
   margin: 1em 0;
   border: thin solid;
 }
 
-.heading {
+#lens .heading {
   border-bottom: thin solid;
   text-align: center;
   padding: 1em;
   position: relative;
 }
 
-.heading h4 {
+#lens .heading h4 {
   margin: 0;
 }
 
-.subject .body {
+#lens .subject .body {
   display: flex;
 }
 
-.subject .column {
+#lens .subject .column {
   flex: 1;
 }
 
-.subject .column.samples {
+#lens .subject .column.samples {
   border-left: thin solid;
 }
 
 /* override lightning css */
-ul {
+#lens ul {
   margin: 0;
   padding-left: 1em;
   list-style-type: disc;
 }
 
 /* override lightning css */
-.subject .column, .sample .body, .aspect .body {
+#lens .subject .column, #lens .sample .body, #lens .aspect .body {
   padding: 1em;
 }
 
-ul.inline {
+#lens ul.inline {
   display: inline;
   padding: 0;
 }
-ul.inline li {
+
+#lens ul.inline li {
   display: inline;
 }
 
-ul.inline li::after {
+#lens ul.inline li::after {
   content: ",";
 }
 
-ul.inline li:last-child::after {
+#lens ul.inline li:last-child::after {
   content: none;
 }
 
-.top-link {
+#lens .top-link {
   border: thin solid;
   width: 1em;
   height: 1em;
@@ -99,31 +101,31 @@ ul.inline li:last-child::after {
   text-decoration: none;
 }
 
-.top-link:hover {
+#lens .top-link:hover {
   font-weight: bold;
   text-decoration: none;
 }
 
-.OK {
+#lens .status-OK {
   color: green;
 }
 
-.Info {
+#lens .status-Info {
   color: blue;
 }
 
-.Warning {
+#lens .status-Warning {
   color: yellow;
 }
 
-.Critical {
+#lens .status-Critical {
   color: red;
 }
 
-.Timeout {
+#lens .status-Timeout {
   color: gray;
 }
 
-.Invalid {
+#lens .status-Invalid {
   color: gray;
 }
