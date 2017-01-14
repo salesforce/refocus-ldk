@@ -215,6 +215,14 @@ module.exports = class Random {
     return Math.round(d3r.randomUniform(min, max)());
   } // intBetween
 
+  static randomLongitude() {
+    return d3r.randomUniform(-180, 180)();
+  }  // randomLongitude
+
+  static randomLatitude() {
+    return d3r.randomUniform(-90, 90)();
+  } // randomLatitude
+
   /**
    * Returns some "Lorem ipsum..." text (random number of sentences).
    */
@@ -294,7 +302,7 @@ module.exports = class Random {
     const s = {
       absolutePath: `${parentAbsolutePath}.${name}`,
       description: this.messageBody(),
-      geolocation: [this.intBetween(-90, 90), this.intBetween(-180, 180)],
+      geolocation: [this.randomLatitude(), this.randomLongitude()],
       helpEmail: `${name}@foo.com`,
       helpUrl: `http://${name}.foo.com`,
       name,
