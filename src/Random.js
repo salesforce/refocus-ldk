@@ -302,12 +302,15 @@ module.exports = class Random {
     const s = {
       absolutePath: `${parentAbsolutePath}.${name}`,
       description: this.messageBody(),
-      geolocation: [this.randomLatitude(), this.randomLongitude()],
       helpEmail: `${name}@foo.com`,
       helpUrl: `http://${name}.foo.com`,
       name,
       updatedAt: now,
     };
+    if (this.intBetween(0, 1)) {
+      s.geolocation = [this.randomLatitude(), this.randomLongitude()];
+    }
+
     return s;
   } // addSubject
 
