@@ -131,13 +131,45 @@ function formatDateFields(object) {
  * This function modifies the DOM by passing the data into our template(s).
  */
 function draw() {
-  let context = {
-    "subjects": Array.from(subjects.values()),
-    "aspects": Array.from(aspects.values()),
-    "samples": Array.from(samples.values())
+  const subjectList = Array.from(subjects.values());
+  const aspectList = Array.from(aspects.values());
+  const sampleList = Array.from(samples.values())
+  subjectList.forEach(s => s.samples.sort(sampleSorter));
+  aspectList.sort(aspectSorter);
+  const context = {
+    "subjects": subjectList,
+    "aspects": aspectList,
+    "samples": sampleList,
   };
   LENS.innerHTML = mainTemplate(context);
 } // draw
+
+function sampleSorter(a, b) {
+    return aspectSorter(a.aspect, b.aspect);
+} // sampleSorter
+
+function aspectSorter(a, b) {
+  let ret;
+  if (a.rank != null && b.rank != null) {
+    ret = a.rank - b.rank;
+  } else if (a.rank == null && b.rank == null) {
+    ret = 0;
+  } else if (a.rank == null && b.rank != null) {
+    ret = 1;
+  } else if (a.rank != null && b.rank == null) {
+    ret = -1;
+  }
+
+  if (ret === 0) {
+    if (a.name.toLowerCase() > b.name.toLowerCase()) {
+      ret = 1;
+    } else if (a.name.toLowerCase() < b.name.toLowerCase()) {
+      ret = -1;
+    }
+  }
+
+  return ret;
+} // aspectSorter
 
 /**
  * Handle the refocus.lens.realtime.change event. The array of changes is
