@@ -134,7 +134,9 @@ function draw() {
   const subjectList = Array.from(subjects.values());
   const aspectList = Array.from(aspects.values());
   const sampleList = Array.from(samples.values())
+  subjectList.sort(subjectSorter);
   subjectList.forEach(s => s.samples.sort(sampleSorter));
+  sampleList.sort(sampleSorter);
   aspectList.sort(aspectSorter);
   const context = {
     "subjects": subjectList,
@@ -144,8 +146,21 @@ function draw() {
   LENS.innerHTML = mainTemplate(context);
 } // draw
 
-function sampleSorter(a, b) {
-    return aspectSorter(a.aspect, b.aspect);
+function subjectSorter(subject1, subject2) {
+  const string1 = subject1.parentAbsolutePath + '.' + (subject1.sortBy || subject1.name);
+  const string2 = subject2.parentAbsolutePath + '.' + (subject2.sortBy || subject2.name);
+  return ascending(string1, string2);
+} // subjectSorter
+
+function sampleSorter(sample1, sample2) {
+  const subject1 = subjects.get(sample1.subjectAbsolutePath);
+  const subject2 = subjects.get(sample2.subjectAbsolutePath);
+  let ret = subjectSorter(subject1, subject2);
+  if (ret === 0) {
+    ret = aspectSorter(sample1.aspect, sample2.aspect);
+  }
+
+  return ret;
 } // sampleSorter
 
 function aspectSorter(a, b) {
@@ -161,15 +176,21 @@ function aspectSorter(a, b) {
   }
 
   if (ret === 0) {
-    if (a.name.toLowerCase() > b.name.toLowerCase()) {
-      ret = 1;
-    } else if (a.name.toLowerCase() < b.name.toLowerCase()) {
-      ret = -1;
-    }
+    ret = ascending(a.name, b.name);
   }
 
   return ret;
 } // aspectSorter
+
+function ascending(a, b) {
+  if (a.toLowerCase() > b.toLowerCase()) {
+    return 1;
+  } else if (a.toLowerCase() < b.toLowerCase()) {
+    return -1;
+  } else {
+    return 0;
+  }
+} // ascending
 
 /**
  * Handle the refocus.lens.realtime.change event. The array of changes is

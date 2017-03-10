@@ -4,9 +4,10 @@
   "helpEmail": "igoldstein@salesforce.com",
   "helpUrl": "https://git.soma.salesforce.com/igoldstein/refocus-ldk",
   "license": "TBD",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "releaseNotes": {
     "1.0.0": "Create example lens",
-    "1.0.1": "Aspect rank"
+    "1.0.1": "Aspect rank",
+    "1.0.2": "Subject sortBy"
   }
 }
