@@ -2,7 +2,7 @@
   "name": "Example",
   "description": "A basic lens that shows the value of every field on every subject, aspect, and sample",
   "helpEmail": "igoldstein@salesforce.com",
-  "helpUrl": "https://git.soma.salesforce.com/igoldstein/refocus-ldk",
+  "helpUrl": "https://github.com/salesforce/refocus-ldk",
   "license": "TBD",
   "version": "1.0.2",
   "releaseNotes": {
