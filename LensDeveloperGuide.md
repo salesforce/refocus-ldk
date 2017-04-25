@@ -4,7 +4,7 @@
 
 Refocus is a platform for visualizing the status of some set of subjects under monitoring. The platform does not attempt to provide visualizations to satisfy every type of user. Instead, it allows users to install add-on modules, which we call *lenses*, to provide new visualizations. Each lens provides a new visualization to help users understand their data in a new way.
 
-A *lens* is a collection of resources which renders its own particular visualization of Refocus hierarchy data. In its simplest form, a lens can be a single JavaScript file which registers and implements an event listener to handle one or more custom Refocus events. A more robust lens might include additional resources to help render the visualization like stylesheets, images and additional JavaScript files.
+A *lens* is a collection of resources which renders its own particular visualization of Refocus hierarchy data. In its simplest form, a lens can be a single JavaScript file which registers and implements an event listener to handle one or more custom Refocus events. A more robust lens might include additional resources to help render the visualization like stylesheets, templates, images and additional JavaScript helper files.
 
 A *perspective* is the combination of a lens, a root subject, and an optional filter. When a user loads a perspective in the browser:
 
