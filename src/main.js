@@ -91,7 +91,7 @@ cookies.write('ldk-conf', JSON.stringify(conf));
   console.log('ldk.hierarchyLoad', new Date(), `Loading ${file}`);
   x.open('GET', file, true);
   x.send();
-})(); // hierarhcyLoad IIFE
+})(); // hierarchyLoad IIFE
 
 /**
  * Immediately-invoked function expression to start the flow of random
@@ -101,4 +101,4 @@ cookies.write('ldk-conf', JSON.stringify(conf));
   const lens = document.getElementById('lens');
   lens.addEventListener('refocus.lens.hierarchyLoad',
     (evt) => new Realtime(conf.realtime, lens, evt.detail));
-})(); // onHierarhcyLoad IIFE
+})(); // onHierarchyLoad IIFE
