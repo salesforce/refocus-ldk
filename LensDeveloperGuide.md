@@ -56,7 +56,13 @@ This event is dispatched by the perspective immediately after the perspective pa
 
 #### Event Payload
 
-TODO
+```json
+{
+  "detail": {
+    "userId": "..."
+  }
+}
+```
 
 ### `refocus.lens.hierarchyLoad`
 
