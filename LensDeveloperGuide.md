@@ -85,6 +85,7 @@ This event is dispatched by the Refocus server when any of the following changes
 
 * a sample is created
 * a sample is updated
+* a sample is updated but the only modified attribute is the "updatedAt" timestamp
 * a sample is deleted
 * a new or unpublished subject is published
 * a published subject is updated
