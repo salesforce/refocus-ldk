@@ -66,6 +66,7 @@ gulp.task('create', () => {
       description: '',
       helpEmail: '',
       helpUrl: '',
+      lensEventApiVersion: 1,
       license: '',
       version: '0.0.1',
     }, null, 2));
