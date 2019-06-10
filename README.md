@@ -79,6 +79,7 @@ npm run test
 ### Build
 
 Before you build your lens, you should update your lens metadata in `./SuperDuperLens/lens.json`.
+Note: "lensEventApiVersion" currently defaults to 1.
 
 Package up all your lens resources into `./dist/SuperDuperLens.zip` for deployment using the build script:
 
