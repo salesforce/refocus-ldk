@@ -15,6 +15,12 @@
     "test": "mocha --recursive ./Lenses/$npm_package_config_lens/test/**/*.js",
     "zip": "gulp zip --lens=$npm_package_config_lens"
   },
+  "bin" : {
+    "lens-init" : "bin/lensinit.js",
+    "lens-compile" : "",
+    "lens-zip": "",
+    "lens-prototyoe" : ""
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/salesforce/refocus-ldk"
