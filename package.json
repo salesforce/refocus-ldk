@@ -17,7 +17,7 @@
   },
   "bin" : {
     "lens-init" : "bin/lensinit.js",
-    "lens-compile" : "",
+    "lens-compile" : "bin/lenscompile.js",
     "lens-zip": "",
     "lens-prototyoe" : ""
   },
