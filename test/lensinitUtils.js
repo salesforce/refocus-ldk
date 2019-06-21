@@ -25,8 +25,8 @@ describe('lensinitUtils test > ', () => {
     }
 
     describe('create dir test > ', () => {
-        before(() => mock);
-        after(() => mock.restore());
+        beforeEach(() => mock);
+        afterEach(() => mock.restore());
 
         it('new directory created',() =>{
             expect(fs.existsSync('./newlens')).to.be.false;
@@ -39,7 +39,7 @@ describe('lensinitUtils test > ', () => {
 
     describe('copy packages test > ',function() {
         this.timeout(3000);
-        before(()=> {
+        beforeEach(()=> {
             mock({
                 'newlens': {
                     node_modules: {},
@@ -58,7 +58,7 @@ describe('lensinitUtils test > ', () => {
             });
         });
 
-        after(() => mock.restore());
+        afterEach(() => mock.restore());
 
         it('packages copied', () => {
             expect(fs.readdirSync('./newlens/node_modules')).to.be.empty;
@@ -68,21 +68,41 @@ describe('lensinitUtils test > ', () => {
     });
 
     describe('Set up package json test>', ()=> {
-        //before(() => mock.mkdir('./newlens'));
-        after(() => mock.restore());
+        //beforeEach(function(){
+        //    mock({
+        //        'newlens' :{
+        //            //'package.json' : ''
+        //        }
+        //    });
+        //});
+        //afterEach(() => mock.restore());
 
         it('package.json created >', () => {
-            expect(fs.existsSync('./newlens/package.json')).to.be.false;
+            expect(fs.existsSync('newlens/package.json')).to.be.false;
             lensUtil.setupPackageJson();
-            expect(fs.existsSync('./newlens/package.json')).to.be.true;
+            expect(fs.existsSync('newlens/package.json')).to.be.true;
             const json_file = fs.readJsonSync('./newlens/package.json');
-            expect(json_file.dependencies).to.have.keys('commander', 'cookie-jeep','fs','fs-extra','handlebars','handlebars-loader','moment','moment-timezone', 'mustache','mustache-loader');
+            expect(json_file.dependencies).to.have.keys('commander', 'cookie-jeep','fs','fs-extra','handlebars','handlebars-loader','mock-fs','moment','moment-timezone', 'mustache','mustache-loader');
             expect(json_file.scripts).to.have.keys('compile','zip','build','prototype','test');
         })
 
     });
 
     describe('AddscriptsandDependencies', () =>{
+        let packageJson = {
+            "name" : 'temp_lens',
+            "version" : '1.0.0',
+            "description" : 'lens test',
+            "scripts" : '',
+            "dependencies" : ''
+        }
+
+        it('script and dependency added', () =>{
+            lensUtil.addScriptsAndDependencies(packageJson);
+            expect(packageJson.dependencies).to.have.keys('commander', 'cookie-jeep','fs','fs-extra','handlebars','handlebars-loader','mock-fs','moment','moment-timezone', 'mustache','mustache-loader');
+            expect(packageJson.scripts).to.have.keys('compile','zip','build','prototype','test');
+
+        })
 
     });
 });

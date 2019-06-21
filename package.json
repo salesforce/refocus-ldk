@@ -7,23 +7,23 @@
   "description": "Refocus Lens Developer Kit",
   "scripts": {
     "build": "npm run compile && npm run zip",
-    "compile": "webpack --config webpack.lens.config.js --progress --colors --optimize-dedupe",
+    "compile": "lens-compile",
     "compile-watch": "webpack --config webpack.lens.config.js --progress --colors --watch",
     "create": "gulp create --lens=$npm_package_config_lens",
     "ldk-compile": "webpack --config webpack.ldk.config.js --progress --colors --watch",
-    "prototype": "node . --lens=$npm_package_config_lens",
-    "test": "mocha --recursive ./Lenses/$npm_package_config_lens/test/**/*.js",
-    "zip": "gulp zip --lens=$npm_package_config_lens"
+    "prototype": "lens-prototype",
+    "test": "",
+    "zip": "lens-zip"
   },
-  "bin" : {
-    "lens-init" : "bin/lensinit.js",
-    "lens-compile" : "bin/lenscompile.js",
+  "bin": {
+    "lens-init": "bin/lensinit.js",
+    "lens-compile": "bin/lenscompile.js",
     "lens-zip": "",
-    "lens-prototyoe" : ""
+    "lens-prototyoe": ""
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/salesforce/refocus-ldk"
+    "url": "git+https://github.com/salesforce/refocus-ldk.git"
   },
   "keywords": [],
   "author": "Ian Goldstein",
@@ -57,13 +57,20 @@
     "worker-loader": "^0.7.1"
   },
   "dependencies": {
+    "commander": "2.20.0",
     "cookie-jeep": "^0.1.0",
     "fs": "0.0.2",
+    "fs-extra": "8.0.1",
     "handlebars": "^4.0.5",
     "handlebars-loader": "^1.3.0",
+    "mock-fs": "4.10.1",
     "moment": "^2.16.0",
     "moment-timezone": "^0.5.9",
     "mustache": "^2.2.1",
     "mustache-loader": "^0.3.1"
+  },
+  "main": "index.js",
+  "directories": {
+    "test": "test"
   }
 }

@@ -7,6 +7,7 @@
 const util = require('util');
 const path = require('path');
 const fs = require('fs-extra');
+const process = require('process');
 //current working directory
 let cwd = process.cwd();
 const ldkDependencies = require('../package.json').dependencies;
@@ -91,7 +92,9 @@ module.exports = {
     },
     //Set up package.json file & readme
     setupPackageJson: (dir = cwd) =>{
-        execSync('npm init --force', { cwd: dir, stdio: 'ignore'});
+        console.log('setting up package.json...');
+        execSync('npm init --yes', { cwd: dir, stdio: 'ignore', env : process.env});
+        console.log(dir);
         const p = fs.readJsonSync(path.resolve(dir, 'package.json'));
         console.log(ldkDependencies);
         addScriptsAndDependencies(p);

@@ -7,7 +7,9 @@
 const path = require('path');
 const webpack = require('webpack');
 const commander = require('commander');
-const dir = cwd;
+const process = require('process');
+const dir = process.cwd();
+const lens_dir = path.resolve(dir,'src/main.js');
 
 /**
  * Webpack notes:
@@ -27,13 +29,15 @@ const dir = cwd;
  * console.error / console.warn / err.details are useful
  */
 
+commander.option('--watch').parse(process.argv);
+
 const compiler = webpack({
     entry: [
-        `./Lenses/${lens}/src/main`,
+       lens_dir,
     ],
     output: {
         filename: 'lens.js',
-        path: path.join(__dirname, 'Lenses', lens),
+        path: dir
     },
     module: {
         loaders: [
@@ -52,6 +56,7 @@ const compiler = webpack({
         ],
     },
     stats: {
+        progress: true,
         colors : true
     },
     plugins: {
@@ -59,9 +64,45 @@ const compiler = webpack({
     }
 });
 
-compiler.run(function(err,stat){
-    //err object does not include compilation errors andthose must be handled separately using stats.hasErrors()
-    console.log(stat.toString());
-    console.log(err);
-});
+
+if(commander.watch){
+    compiler.watch({
+        //watch options
+
+    }, function(err,stats){
+        //error-handling
+        if(err){
+            console.error(err.stack || err);
+            if(err.details){
+                console.log(err.details);
+            }
+        }
+
+        const stat_info = stats.toJson();
+        if(stats.hasErrors()){
+            console.error(stat_info.errors);
+        }
+        if(stats.hasWarnings()){
+            console.warn(stat_info.warnings);
+        }
+    });
+}else{
+    compiler.run(function(err,stats){
+        //err object does not include compilation errors andthose must be handled separately using stats.hasErrors()
+        if(err){
+            console.error(err.stack || err);
+            if(err.details){
+                console.log(err.details);
+            }
+        }
+
+        const stat_info = stats.toJson();
+        if(stats.hasErrors()){
+            console.error(stat_info.errors);
+        }
+        if(stats.hasWarnings()){
+            console.warn(stat_info.warnings);
+        }
+    });
+}
 
