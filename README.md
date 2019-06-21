@@ -1,5 +1,3 @@
-refocus-ldk Lens 
-
 # refocus-ldk
 
 ## Refocus Lens Developer Kit
