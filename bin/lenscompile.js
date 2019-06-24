@@ -8,6 +8,7 @@ const path = require('path');
 const webpack = require('webpack');
 const commander = require('commander');
 const process = require('process');
+//assuming that scripts are called from current lens directory
 const dir = process.cwd();
 const lens_dir = path.resolve(dir,'src/main.js');
 
@@ -61,7 +62,7 @@ const compiler = webpack({
     },
     plugins: {
         //new webpack.optimize.DedupePlugin() since dedupeplugin is no longer available in webpack v4
-    }
+}
 });
 
 

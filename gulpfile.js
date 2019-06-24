@@ -26,20 +26,20 @@ const error = {
 const lensInfo = lensarg.init();
 
 gulp.task('zip', () => {
-  if (!fs.existsSync(lensInfo.dir)) {
-    console.log(error.lensDirDoesNotExist);
-    process.exit(0);
-  }
+    if (!fs.existsSync(lensInfo.dir)) {
+        console.log(error.lensDirDoesNotExist);
+        process.exit(0);
+    }
 
-  // TODO deal with images
+    // TODO deal with images
 
-  const toZip = [
-    `${lensInfo.dir}/lens.json`,
-    `${lensInfo.dir}/lens.js`,
-  ];
-  return gulp.src(toZip)
-    .pipe(zip(`${lensInfo.name}.zip`))
-    .pipe(gulp.dest('./dist'));
+    const toZip = [
+        `${lensInfo.dir}/lens.json`,
+        `${lensInfo.dir}/lens.js`,
+    ];
+    return gulp.src(toZip)
+        .pipe(zip(`${lensInfo.name}.zip`))
+        .pipe(gulp.dest('./dist'));
 }); // zip
 
 /**

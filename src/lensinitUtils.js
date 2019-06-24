@@ -71,7 +71,7 @@ module.exports = {
         );
         //console.log('current dir ' + dir);
         //console.log('temp dir' + dir);
-        fs.appendFileSync(path.resolve(dir,'src/main.js'), fs.readFileSync('main.template', 'utf8'));
+        fs.appendFileSync(path.resolve(dir,'src/main.js'), fs.readFileSync('../main.template', 'utf8'));
         fs.appendFileSync(path.resolve(dir,'src/lens.css'), '');
     },
     //Copy devDependencies of LDK
