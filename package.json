@@ -7,18 +7,18 @@
   "description": "Refocus Lens Developer Kit",
   "scripts": {
     "build": "npm run compile && npm run zip",
-    "compile": "lens-compile",
+    "compile": "webpack --config webpack.lens.config.js --progress --colors --optimize-dedupe",
     "compile-watch": "webpack --config webpack.lens.config.js --progress --colors --watch",
     "create": "gulp create --lens=$npm_package_config_lens",
     "ldk-compile": "webpack --config webpack.ldk.config.js --progress --colors --watch",
-    "prototype": "lens-prototype",
-    "test": "",
-    "zip": "lens-zip"
+    "prototype": "node . --lens=$npm_package_config_lens",
+    "test": "mocha --recursive ./Lenses/$npm_package_config_lens/test/**/*.js",
+    "zip": "gulp zip --lens=$npm_package_config_lens"
   },
   "bin": {
     "lens-init": "bin/lensinit.js",
     "lens-compile": "bin/lenscompile.js",
-    "lens-zip": "",
+    "lens-zip": "bin/lenszip.js",
     "lens-prototyoe": ""
   },
   "repository": {
@@ -42,7 +42,7 @@
     "dateformat": "^1.0.12",
     "eslint": "^1.10.3",
     "express": "^4.14.0",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.0",
     "gulp-mocha": "^2.2.0",
     "gulp-zip": "^3.2.0",
     "handlebars-template-loader": "^0.7.0",
@@ -68,9 +68,5 @@
     "moment-timezone": "^0.5.9",
     "mustache": "^2.2.1",
     "mustache-loader": "^0.3.1"
-  },
-  "main": "index.js",
-  "directories": {
-    "test": "test"
   }
 }
