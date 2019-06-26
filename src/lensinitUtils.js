@@ -62,17 +62,26 @@ module.exports = {
         console.log('creating project directory...');
         const dir = path.resolve(cwd,lensName);
         fs.mkdirpSync(dir,{recursive : true}, (err)=>{
-            if(err) throw err;
+            if(err) throw new Error(err);
         });
         let temp_dir = cwd;
         cwd = dir;
+        try{
+            fs.accessSync(cwd, fs.constants.F_OK);
+        }catch(err){
+            console.log(err);
+            return false;
+        }
         [path.resolve(dir,'src'),path.resolve(dir,'test')].forEach(
-            (d) => {fs.mkdirSync(d,{recursive : true})}
+            (d) => {fs.mkdirpSync(d,{recursive : true}, (err) => {
+                if(err) throw new Error(err);
+            })}
         );
         //console.log('current dir ' + dir);
         //console.log('temp dir' + dir);
-        fs.appendFileSync(path.resolve(dir,'src/main.js'), fs.readFileSync('../main.template', 'utf8'));
+        fs.appendFileSync(path.resolve(dir,'src/main.js'), fs.readFileSync('main.template', 'utf8'));
         fs.appendFileSync(path.resolve(dir,'src/lens.css'), '');
+        return true;
     },
     //Copy devDependencies of LDK
     copyPackages:() => {
@@ -89,19 +98,21 @@ module.exports = {
                 fs.copySync(fromDir,toDir);
             }
         });
+        return true;
     },
     //Set up package.json file & readme
     setupPackageJson: (dir = cwd) =>{
         console.log('setting up package.json...');
         execSync('npm init --yes', { cwd: dir, stdio: 'ignore', env : process.env});
-        console.log(dir);
+        //console.log(dir);
         const p = fs.readJsonSync(path.resolve(dir, 'package.json'));
-        console.log(ldkDependencies);
+        //console.log(ldkDependencies);
         addScriptsAndDependencies(p);
         fs.writeJsonSync(path.resolve(dir, 'package.json'), p, { spaces: 2 });
         const temp = fs.readJsonSync(path.resolve(dir, 'package.json'));
         console.log('creating readme...');
         fs.writeFile( path.resolve(cwd,'README.md'), util.format(readme, temp.name, temp.description || 'A new lens project for Refocus'));
+        return true;
     },
 
     addScriptsAndDependencies

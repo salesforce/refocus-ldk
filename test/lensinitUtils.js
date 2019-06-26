@@ -7,7 +7,8 @@ const path = require('path');
 const expect = chai.expect;
 const lensUtil = require('../src/lensinitUtils');
 const fs = require('fs-extra');
-const mock = require('mock-fs')
+const mock = require('mock-fs');
+
 
 describe('lensinitUtils test > ', () => {
 
@@ -82,8 +83,10 @@ describe('lensinitUtils test > ', () => {
             lensUtil.setupPackageJson();
             expect(fs.existsSync('newlens/package.json')).to.be.true;
             const json_file = fs.readJsonSync('./newlens/package.json');
-            expect(json_file.dependencies).to.have.keys('commander', 'cookie-jeep','fs','fs-extra','handlebars','handlebars-loader','mock-fs','moment','moment-timezone', 'mustache','mustache-loader');
+            expect(json_file.dependencies).to.have.keys('commander', 'cookie-jeep','fs','fs-extra','handlebars','handlebars-loader','mock-fs','moment','moment-timezone', 'mustache','mustache-loader', 'validate-npm-package-name');
             expect(json_file.scripts).to.have.keys('compile','zip','build','prototype','test');
+            expect(fs.existsSync(`./newlens/README.md`)).to.be.true;
+            expect(fs.readFileSync(`./newlens/README.md`)).to.not.be.null;
         })
 
     });
@@ -99,7 +102,7 @@ describe('lensinitUtils test > ', () => {
 
         it('script and dependency added', () =>{
             lensUtil.addScriptsAndDependencies(packageJson);
-            expect(packageJson.dependencies).to.have.keys('commander', 'cookie-jeep','fs','fs-extra','handlebars','handlebars-loader','mock-fs','moment','moment-timezone', 'mustache','mustache-loader');
+            expect(packageJson.dependencies).to.have.keys('commander', 'cookie-jeep','fs','fs-extra','handlebars','handlebars-loader','mock-fs','moment','moment-timezone', 'mustache','mustache-loader','validate-npm-package-name');
             expect(packageJson.scripts).to.have.keys('compile','zip','build','prototype','test');
 
         })
