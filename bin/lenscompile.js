@@ -4,13 +4,13 @@
  * bin/lenscompile.js
  * */
 
+'use strict'
 const path = require('path');
 const webpack = require('webpack');
 const commander = require('commander');
 const process = require('process');
-//assuming that scripts are called from current lens directory
 const dir = process.cwd();
-const lens_dir = path.resolve(dir,'src/main.js');
+const lensDir = path.resolve(dir, 'src/main.js');
 
 /**
  * Webpack notes:
@@ -33,77 +33,76 @@ const lens_dir = path.resolve(dir,'src/main.js');
 commander.option('--watch').parse(process.argv);
 
 const compiler = webpack({
-    entry: [
-       lens_dir,
+  entry: [
+    lensDir,
+  ],
+  output: {
+    filename: 'lens.js',
+    path: dir,
+  },
+  module: {
+    loaders: [
+      {
+        test: /\.css$/,
+        loader: 'style!css',
+      },
+      {
+        test: /\.json$/,
+        loader: 'json',
+      },
+      {
+        test: /\.handlebars$/,
+        loader: 'handlebars-template-loader',
+      },
     ],
-    output: {
-        filename: 'lens.js',
-        path: dir
-    },
-    module: {
-        loaders: [
-            {
-                test: /\.css$/,
-                loader: 'style!css',
-            },
-            {
-                test: /\.json$/,
-                loader: 'json',
-            },
-            {
-                test: /\.handlebars$/,
-                loader: 'handlebars-template-loader',
-            },
-        ],
-    },
-    stats: {
-        progress: true,
-        colors : true
-    },
-    plugins: {
-        //new webpack.optimize.DedupePlugin() since dedupeplugin is no longer available in webpack v4
-}
+  },
+  stats: {
+    progress: true,
+    colors: true,
+  },
+  plugins: {
+  },
 });
 
+if (commander.watch) {
+  compiler.watch({
+    //watch options
 
-if(commander.watch){
-    compiler.watch({
-        //watch options
+  }, function (err, stats) {
+    //error-handling
+    if (err) {
+      console.error(err.stack || err);
+      if (err.details) {
+        console.log(err.details);
+      }
+    }
 
-    }, function(err,stats){
-        //error-handling
-        if(err){
-            console.error(err.stack || err);
-            if(err.details){
-                console.log(err.details);
-            }
-        }
+    const statInfo = stats.toJson();
+    if (stats.hasErrors()) {
+      console.error(statInfo.errors);
+    }
 
-        const stat_info = stats.toJson();
-        if(stats.hasErrors()){
-            console.error(stat_info.errors);
-        }
-        if(stats.hasWarnings()){
-            console.warn(stat_info.warnings);
-        }
-    });
-}else{
-    compiler.run(function(err,stats){
-        //err object does not include compilation errors andthose must be handled separately using stats.hasErrors()
-        if(err){
-            console.error(err.stack || err);
-            if(err.details){
-                console.log(err.details);
-            }
-        }
+    if (stats.hasWarnings()) {
+      console.warn(statInfo.warnings);
+    }
+  });
+} else {
+  compiler.run(function (err, stats) {
+    if (err) {
+      console.error(err.stack || err);
+      if (err.details) {
+        console.log(err.details);
+      }
+    }
 
-        const stat_info = stats.toJson();
-        if(stats.hasErrors()){
-            console.error(stat_info.errors);
-        }
-        if(stats.hasWarnings()){
-            console.warn(stat_info.warnings);
-        }
-    });
+    const statInfo = stats.toJson();
+    if (stats.hasErrors()) {
+      console.error(statInfo.errors);
+    }
+
+    if (stats.hasWarnings()) {
+      console.warn(statInfo.warnings);
+    }
+  });
 }
 
