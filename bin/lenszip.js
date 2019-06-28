@@ -37,8 +37,14 @@ function zipFunc(done) {
 
   }
 
+  let zipFilePath = `${lensInfo.dir}/package.json`;
+
+  if (!fs.existsSync(zipFilePath)) {
+    zipFilePath = `${lensInfo.dir}/lens.json`;
+  }
+
   const toZip = [
-    `${lensInfo.dir}/package.json`,
+    zipFilePath,
     `${lensInfo.dir}/lens.js`,
   ];
   return gulp.src(toZip)

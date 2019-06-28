@@ -10,7 +10,7 @@
     "compile": "webpack --config webpack.lens.config.js --progress --colors --optimize-dedupe",
     "compile-watch": "webpack --config webpack.lens.config.js --progress --colors --watch",
     "create": "gulp create --lens=$npm_package_config_lens",
-    "jscs" : "./node_modules/jscs/bin/jscs *.js test bin src",
+    "jscs": "./node_modules/jscs/bin/jscs *.js test ",
     "ldk-compile": "webpack --config webpack.ldk.config.js --progress --colors --watch",
     "prototype": "node . --lens=$npm_package_config_lens",
     "test": "mocha --recursive ./Lenses/$npm_package_config_lens/test/**/*.js",
@@ -70,6 +70,7 @@
     "moment-timezone": "^0.5.9",
     "mustache": "^2.2.1",
     "mustache-loader": "^0.3.1",
+    "unzipper": "0.10.1",
     "validate-npm-package-name": "^3.0.0"
   }
 }
