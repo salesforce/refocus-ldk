@@ -10,16 +10,16 @@
     "compile": "webpack --config webpack.lens.config.js --progress --colors --optimize-dedupe",
     "compile-watch": "webpack --config webpack.lens.config.js --progress --colors --watch",
     "create": "gulp create --lens=$npm_package_config_lens",
-    "jscs": "./node_modules/jscs/bin/jscs *.js test ",
+    "jscs": "./node_modules/jscs/bin/jscs *.js test bin src",
     "ldk-compile": "webpack --config webpack.ldk.config.js --progress --colors --watch",
     "prototype": "node . --lens=$npm_package_config_lens",
     "test": "mocha --recursive ./Lenses/$npm_package_config_lens/test/**/*.js",
     "zip": "gulp zip --lens=$npm_package_config_lens"
   },
   "bin": {
-    "lens-init": "bin/lensinit.js",
-    "lens-compile": "bin/lenscompile.js",
-    "lens-zip": "bin/lenszip.js",
+    "lens-init": "bin/lensInit.js",
+    "lens-compile": "bin/lensCompile.js",
+    "lens-zip": "bin/lensZip.js",
     "lens-prototyoe": ""
   },
   "repository": {

@@ -1,5 +1,5 @@
 /**
- * test/lensinit.js
+ * test/lensInit.js
  */
 
 const chai = require('chai');
@@ -15,7 +15,7 @@ describe('lens init test>', function () {
 
   it('lens init >', (done) => {
     expect(fs.existsSync(`./${projectname}`)).to.be.false;
-    const forkedProcess = childProcess.fork('./bin/lensinit.js', [projectname], {});
+    const forkedProcess = childProcess.fork('./bin/lensInit.js', [projectname], {});
     forkedProcess.on('close', () => {
       /* createDir */
       expect(fs.existsSync(`./${projectname}`)).to.be.true;

@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 
 /**
- * bin/lens-init.js
+ * bin/lensInit.js
  */
 
 const lensUtil = require('../src/lensinitUtils');

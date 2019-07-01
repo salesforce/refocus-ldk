@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 
 /**
- * bin/lenszip.js
+ * bin/lensZip.js
  * */
 
 'use strict'
@@ -14,9 +14,7 @@ const process = require('process');
 
 /**
  *Gulp notes:
- * - You can run gulp tasks without a gulpfile if you include gulp.start('task name')
- *
- * -Instead of lens.json - zipped package.json
+ * - Lens.json for old projects, package.json for new projects
  */
 
 const lensInfo = {

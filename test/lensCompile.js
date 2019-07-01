@@ -1,5 +1,5 @@
 /**
- * test/lenscompile.js
+ * test/lensCompile.js
  */
 
 const chai = require('chai');
@@ -21,7 +21,8 @@ describe('lens compile test >', function () {
     //run lens compile script from Lenses/Example folder
     //compare two files from the test folder and from the compile
 
-    const forkedProcess = childProcess.fork('../../bin/lenscompile.js', [] , { cwd:'./Lenses/Example' });
+    const forkedProcess = childProcess.fork('../../bin/lensCompile.js',
+      [], { cwd: './Lenses/Example' });
     forkedProcess.on('close', () => {
       expect(fs.existsSync('./Lenses/Example/lens.js')).to.be.true;
       const fileNew = fs.readFileSync('./Lenses/Example/lens.js');
@@ -29,11 +30,11 @@ describe('lens compile test >', function () {
       expect(fileNew).to.not.be.null;
       const statTest = fs.statSync('./test/lensTest.js');
       const statNew = fs.statSync('./Lenses/Example/lens.js');
-      const sizeTest = statTest['size'];
-      const sizeNew = statNew['size'];
+      const sizeTest = statTest.size;
+      const sizeNew = statNew.size;
       expect(sizeNew).to.equal(sizeTest);
       expect(fileNew.toString() === fileTest.toString());
-      done()
+      done();
     });
 
   });

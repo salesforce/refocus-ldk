@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 
 /**
- * bin/lenscompile.js
+ * bin/lensCompile.js
  * */
 
 'use strict'
@@ -14,11 +14,6 @@ const lensDir = path.resolve(dir, 'src/main.js');
 
 /**
  * Webpack notes:
- * - run : used to kicjstart all compilation work with a callback function
- * so the err and stats function will be the callback of run
- * - add a ' watch ' option in the command line if there is a watch option than call 'watch' on compiler instance
- * watch function will have options and callback func that deals with stats and errors
- * - close method will end the watch
  *Stat object in webpack:
  * - stats.hasErrors() - errors while compiling (returns true or false)
  * - stats.hasWarnings() - same thing for warnings
@@ -27,7 +22,6 @@ const lensDir = path.resolve(dir, 'src/main.js');
  * - fatal webpack errors - wrong config
  * - compilation errors - missing modules & syntax errors
  * - compilation warnings
- * console.error / console.warn / err.details are useful
  */
 
 commander.option('--watch').parse(process.argv);
