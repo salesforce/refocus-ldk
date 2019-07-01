@@ -6,7 +6,6 @@ The Refocus Lens Developer Kit (LDK) is a toolkit for developing, testing and pa
 
 - [Introduction](#introduction)
 - [Install](#install)
-- [Configure](#configure)
 - [Create](#create)
 - [Implement](#implement)
 - [Prototype](#prototype)
