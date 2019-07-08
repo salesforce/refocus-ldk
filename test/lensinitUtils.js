@@ -40,8 +40,13 @@ describe('lensinitUtils test > ', () => {
 
   describe('copy packages test > ', function () {
 
-    this.timeout(3000);
+    this.timeout(7000);
+    const tempPath = path.resolve(process.cwd(), 'newlens');
     beforeEach(() => {
+      //   fs.mkdirSync(tempPath);
+      //   if (fs.existsSync(tempPath)) {
+      //     fs.mkdirSync(path.resolve(tempPath,'node_modules'));
+      //   }
       mock({
         newlens: {
           node_modules: {},
@@ -59,16 +64,15 @@ describe('lensinitUtils test > ', () => {
         },
       });
     });
-
     afterEach(() => mock.restore());
 
-    it('packages copied', () => {
+    it('packages copied', (done) => {
       expect(fs.readdirSync('./newlens/node_modules')).to.be.empty;
       lensUtil.copyPackages();
-      expect(fs.readdirSync('./newlens/node_modules')).to.have.members('chai',
-        'dateformat', 'eslint',
-        'express', 'gulp', 'jsdom',
-        'mocha', 'rimraf', 'webpack');
+      expect(fs.readdirSync('./newlens/node_modules')).to.have.members(['chai', 'dateformat',
+        'eslint', 'express', 'gulp', 'jsdom',
+        'mocha', 'rimraf', 'webpack']);
+      done();
     });
   });
 
@@ -88,9 +92,17 @@ describe('lensinitUtils test > ', () => {
       expect(fs.existsSync('newlens/package.json')).to.be.true;
       const jsonfile = fs.readJsonSync('./newlens/package.json');
       expect(jsonfile.dependencies).to.have.keys('commander',
-        'cookie-jeep', 'fs', 'fs-extra', 'handlebars',
-        'handlebars-loader', 'mock-fs', 'moment',
-        'moment-timezone', 'mustache', 'mustache-loader',
+        'cookie-jeep',
+        'fs',
+        'fs-extra',
+        'handlebars',
+        'handlebars-loader',
+        'jscs',
+        'mock-fs', 'moment',
+        'moment-timezone',
+        'mustache',
+        'mustache-loader',
+        'unzipper',
         'validate-npm-package-name');
       expect(jsonfile.scripts).to.have.keys('compile',
         'zip',
@@ -119,10 +131,12 @@ describe('lensinitUtils test > ', () => {
         'fs-extra',
         'handlebars',
         'handlebars-loader',
+        'jscs',
         'mock-fs', 'moment',
         'moment-timezone',
         'mustache',
         'mustache-loader',
+        'unzipper',
         'validate-npm-package-name');
       expect(packageJson.scripts).to.have.keys('compile',
         'zip',

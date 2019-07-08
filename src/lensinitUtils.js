@@ -18,27 +18,32 @@ const execSync = require('child_process').execSync;
 const readme = '%s Lens \n\n %s ';
 
 /* dev dependencies to add to new lens project*/
-const packagesToAdd = [
-  'chai',
-  'dateformat',
-  'eslint',
-  'express',
-  'gulp',
-  'jsdom',
-  'mocha',
-  'rimraf',
-  'webpack',
-];
+const ldkDevDependencies = require('../package.json').devDependencies;
+const packagesToAdd = Object.keys(ldkDependencies);
+const devPackagesToAdd = Object.keys(ldkDevDependencies);
 
-//require('../package.json').devDependencies;
 /* Scripts to add to new lens project */
 const scriptsToAdd = {
   compile: 'lens-compile',
   zip: 'lens-zip',
   build: 'npm run compile && npm run zip',
   prototype: 'lens-prototype',
-  test: '',
+  test: 'mocha --recursive ./test/*.js',
 };
+
+function getAllDependencies(moduleNames, dependencyTree) {
+  let allDependencies = new Set();
+  moduleNames.forEach((moduleName) => {
+    const module = dependencyTree[moduleName];
+    if (module) allDependencies.add(moduleName);
+    const nextDependencies = module && module.dependencies;
+    if (nextDependencies) {
+      getAllDependencies(Object.keys(nextDependencies), nextDependencies)
+        .forEach((dep) => allDependencies.add(dep));
+    }
+  });
+  return allDependencies;
+}
 
 /* Adding scripts and dependencies */
 function addScriptsAndDependencies(packageJson) {
@@ -57,6 +62,16 @@ function addScriptsAndDependencies(packageJson) {
   Object.keys(ldkDependencies).forEach((m) => {
     packageJson.dependencies[m] = ldkDependencies[m];
   });
+
+  if (!packageJson.devDependencies) {
+    packageJson.devDependencies = {};
+  }
+
+  Object.keys(ldkDevDependencies).forEach((k) => {
+    packageJson.devDependencies[k] = ldkDevDependencies[k];
+  });
+
+  packageJson.main = 'main.js';
 
 }
 
@@ -78,7 +93,8 @@ module.exports = {
       return false;
     }
 
-    [path.resolve(dir, 'src'), path.resolve(dir, 'test')].forEach(
+    [path.resolve(dir, 'src'), path.resolve(dir, 'test'),
+      path.resolve(dir, 'node_modules')].forEach(
       (d) => {
         fs.mkdirpSync(d, { recursive: true }, (err) => {
           if (err) throw new Error(err);
@@ -87,7 +103,7 @@ module.exports = {
     );
 
     fs.appendFileSync(path.resolve(dir, 'src/main.js'),
-      fs.readFileSync('../main.template', 'utf8'));
+      fs.readFileSync(path.resolve(__dirname, '../main.template'), 'utf8'));
     fs.appendFileSync(path.resolve(dir, 'src/lens.css'), '');
     return true;
   },
@@ -96,9 +112,17 @@ module.exports = {
   copyPackages: () => {
     console.log('copying packages...');
     const list = execSync('npm ls --prod --json', { cwd: __dirname });
+    const list2 = execSync('npm ls --dev --json', { cwd: __dirname });
     const dependencyTree = JSON.parse(list).dependencies;
-    console.log(packagesToAdd);
-    let allDep = packagesToAdd;
+    const devDepTree = JSON.parse(list2).dependencies;
+    let allDep = getAllDependencies(packagesToAdd, dependencyTree);
+    let devDep = getAllDependencies(devPackagesToAdd, devDepTree);
+    devDep.forEach((dep) => {
+      if (!allDep.has(dep)) {
+
+        allDep.add(dep);
+      }
+    });
     allDep.forEach(module => {
       const fromDir = path.resolve(__dirname, '../node_modules', module);
       const toDir = path.resolve(cwd, 'node_modules', module);

@@ -10,7 +10,7 @@
     "compile": "webpack --config webpack.lens.config.js --progress --colors --optimize-dedupe",
     "compile-watch": "webpack --config webpack.lens.config.js --progress --colors --watch",
     "create": "gulp create --lens=$npm_package_config_lens",
-    "jscs": "./node_modules/jscs/bin/jscs *.js test bin src",
+    "jscs": "./node_modules/jscs/bin/jscs *.js test bin src public",
     "ldk-compile": "webpack --config webpack.ldk.config.js --progress --colors --watch",
     "prototype": "node . --lens=$npm_package_config_lens",
     "test": "mocha --recursive ./Lenses/$npm_package_config_lens/test/**/*.js",
@@ -20,7 +20,7 @@
     "lens-init": "bin/lensInit.js",
     "lens-compile": "bin/lensCompile.js",
     "lens-zip": "bin/lensZip.js",
-    "lens-prototyoe": ""
+    "lens-prototype": "bin/lensPrototype.js"
   },
   "repository": {
     "type": "git",
@@ -35,8 +35,10 @@
   "homepage": "https://github.com/salesforce/refocus-ldk",
   "devDependencies": {
     "chai": "^3.5.0",
+    "chai-http": "^4.3.0",
     "cross-env": "^1.0.6",
     "css-loader": "^0.23.1",
+    "css-selector-tokenizer": "^0.7.1",
     "d3-array": "^1.0.0",
     "d3-collection": "^1.0.0",
     "d3-random": "^1.0.0",
@@ -51,6 +53,7 @@
     "jsdom-global": "^2.0.0",
     "json-loader": "^0.5.4",
     "mocha": "^2.5.3",
+    "object-assign": "4.1.1",
     "rimraf": "^2.4.3",
     "script-loader": "^0.7.0",
     "style-loader": "^0.13.1",
