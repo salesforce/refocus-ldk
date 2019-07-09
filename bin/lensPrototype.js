@@ -20,7 +20,7 @@ app.get('/', function (req, res) {
 });
 
 app.listen(PORT, function () {
-  console.log(`The LDK-Prototyper for your "${lensName}" lens is ` +
+  console.log(`The LDK-Prototyper for "${lensName}" is ` +
     `running at http://localhost:${PORT}`);
 });
 

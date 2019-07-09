@@ -12,7 +12,7 @@ const unzip = require('unzipper');
 describe('lens zip test >', function () {
   this.timeout(5000);
 
-  it('lens zip >', (done) => {
+  it('lens zip created', (done) => {
     const forkedProcess = childProcess.fork('../../bin/lensZip.js',
       [], { cwd: './Lenses/Example' });
     const forkedCWD = './Lenses/Example';

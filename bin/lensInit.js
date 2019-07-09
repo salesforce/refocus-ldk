@@ -6,9 +6,11 @@
 
 const lensUtil = require('../src/lensinitUtils');
 const startTime = Date.now();
+const path = require('path');
 const commander = require('commander');
 const validate = require('validate-npm-package-name');
 let lensName;
+const cwd = process.cwd();
 
 commander.arguments('<lens-name>')
   .action(name => {
@@ -23,7 +25,8 @@ commander.arguments('<lens-name>')
 const isValid = validate(lensName);
 
 if (isValid.validForNewPackages) {
-  const projectInit = `creating lens project ${lensName}`;
+  const lensPath = path.resolve(cwd, lensName);
+  const projectInit = `Creating lens project ${lensName} in ${lensPath}`;
   console.log(projectInit);
 
   //Project initialization:

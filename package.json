@@ -9,11 +9,12 @@
     "build": "npm run compile && npm run zip",
     "compile": "webpack --config webpack.lens.config.js --progress --colors --optimize-dedupe",
     "compile-watch": "webpack --config webpack.lens.config.js --progress --colors --watch",
+    "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- --recursive ./test/*.js",
     "create": "gulp create --lens=$npm_package_config_lens",
-    "jscs": "./node_modules/jscs/bin/jscs *.js test bin src public",
+    "jscs": "./node_modules/jscs/bin/jscs *.js test bin src",
     "ldk-compile": "webpack --config webpack.ldk.config.js --progress --colors --watch",
     "prototype": "node . --lens=$npm_package_config_lens",
-    "test": "mocha --recursive ./Lenses/$npm_package_config_lens/test/**/*.js",
+    "test": "mocha --recursive ./test/*.js",
     "zip": "gulp zip --lens=$npm_package_config_lens"
   },
   "bin": {
@@ -67,6 +68,7 @@
     "fs-extra": "8.0.1",
     "handlebars": "^4.0.5",
     "handlebars-loader": "^1.3.0",
+    "istanbul": "*",
     "jscs": "^3.0.7",
     "mock-fs": "4.10.1",
     "moment": "^2.16.0",

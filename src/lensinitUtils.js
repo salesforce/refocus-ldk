@@ -79,7 +79,7 @@ module.exports = {
 
   //Create a new directory for the project w/ src/main.js & lens.css
   createDir: (lensName) => {
-    console.log('creating project directory...');
+    console.log('Creating project directory...');
     const dir = path.resolve(cwd, lensName);
     fs.mkdirpSync(dir, { recursive: true }, (err) => {
       if (err) throw new Error(err);
@@ -110,7 +110,7 @@ module.exports = {
 
   //Copy devDependencies of LDK
   copyPackages: () => {
-    console.log('copying packages...');
+    console.log('Copying packages...');
     const list = execSync('npm ls --prod --json', { cwd: __dirname });
     const list2 = execSync('npm ls --dev --json', { cwd: __dirname });
     const dependencyTree = JSON.parse(list).dependencies;
@@ -135,13 +135,13 @@ module.exports = {
 
   //Set up package.json file & readme
   setupPackageJson: (dir = cwd) => {
-    console.log('setting up package.json...');
+    console.log('Setting up package.json...');
     execSync('npm init --yes', { cwd: dir, stdio: 'ignore', env: process.env });
     const p = fs.readJsonSync(path.resolve(dir, 'package.json'));
     addScriptsAndDependencies(p);
     fs.writeJsonSync(path.resolve(dir, 'package.json'), p, { spaces: 2 });
     const temp = fs.readJsonSync(path.resolve(dir, 'package.json'));
-    console.log('creating readme...');
+    console.log('Creating readme...');
     fs.writeFile(path.resolve(cwd, 'README.md'), util.format(readme, temp.name,
       temp.description || 'A new lens project for Refocus'));
     return true;

@@ -1,0 +1,63 @@
+{
+  "name": "newlens",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "commander": "2.20.0",
+    "cookie-jeep": "^0.1.0",
+    "fs": "0.0.2",
+    "fs-extra": "8.0.1",
+    "handlebars": "^4.0.5",
+    "handlebars-loader": "^1.3.0",
+    "istanbul": "*",
+    "jscs": "^3.0.7",
+    "mock-fs": "4.10.1",
+    "moment": "^2.16.0",
+    "moment-timezone": "^0.5.9",
+    "mustache": "^2.2.1",
+    "mustache-loader": "^0.3.1",
+    "unzipper": "0.10.1",
+    "validate-npm-package-name": "^3.0.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^4.3.0",
+    "cross-env": "^1.0.6",
+    "css-loader": "^0.23.1",
+    "css-selector-tokenizer": "^0.7.1",
+    "d3-array": "^1.0.0",
+    "d3-collection": "^1.0.0",
+    "d3-random": "^1.0.0",
+    "dateformat": "^1.0.12",
+    "eslint": "^1.10.3",
+    "express": "^4.14.0",
+    "gulp": "^4.0.0",
+    "gulp-mocha": "^2.2.0",
+    "gulp-zip": "^3.2.0",
+    "handlebars-template-loader": "^0.7.0",
+    "jsdom": "^9.4.1",
+    "jsdom-global": "^2.0.0",
+    "json-loader": "^0.5.4",
+    "mocha": "^2.5.3",
+    "object-assign": "4.1.1",
+    "rimraf": "^2.4.3",
+    "script-loader": "^0.7.0",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.1",
+    "worker-loader": "^0.7.1"
+  },
+  "scripts": {
+    "test": "mocha --recursive ./test/*.js",
+    "compile": "lens-compile",
+    "zip": "lens-zip",
+    "build": "npm run compile && npm run zip",
+    "prototype": "lens-prototype"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

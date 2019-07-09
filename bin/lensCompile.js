@@ -58,48 +58,33 @@ const compiler = webpack({
   },
 });
 
+function errorFunction (err,stats) {
+  //error-handling
+  if (err) {
+    console.error(err.stack || err);
+    if (err.details) {
+      console.log(err + ' details');
+      console.log(err.details);
+    }
+  }
+
+  const statInfo = stats.toJson();
+  if (stats.hasErrors()) {
+    console.log('Errors: ');
+    console.error(statInfo.errors);
+  }
+
+  if (stats.hasWarnings()) {
+    console.log('Warnings: ');
+    console.warn(statInfo.warnings);
+  }
+}
+
 if (commander.watch) {
   compiler.watch({
     //watch options
-
-  }, function (err, stats) {
-    //error-handling
-    if (err) {
-      console.error(err.stack || err);
-      if (err.details) {
-        console.log(err.details);
-      }
-    }
-
-    const statInfo = stats.toJson();
-    if (stats.hasErrors()) {
-      console.error(statInfo.errors);
-    }
-
-    if (stats.hasWarnings()) {
-      console.warn(statInfo.warnings);
-    }
-  });
+  }, errorFunction());
 } else {
-  compiler.run(function (err, stats) {
-    if (err) {
-      console.error(err.stack || err);
-      if (err.details) {
-        console.log(err + ' details');
-        console.log(err.details);
-      }
-    }
-
-    const statInfo = stats.toJson();
-    if (stats.hasErrors()) {
-      console.log('Errors: ');
-      console.error(statInfo.errors);
-    }
-
-    if (stats.hasWarnings()) {
-      console.log('Warnings: ');
-      console.warn(statInfo.warnings);
-    }
-  });
+  compiler.run(errorFunction());
 }
 

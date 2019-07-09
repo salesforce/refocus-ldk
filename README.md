@@ -19,7 +19,7 @@ The Refocus Lens Developer Kit (LDK) is a toolkit for developing, testing and pa
 
 The LDK lets you build and test a lens quickly and iteratively, *without* having to install it into a running Refocus application. The LDK also provides some dummy datasets and simulates realtime events so you can test how your lens handles hierarchy data and realtime events.
 
-The LDK creates a new lens project that comes with templates you can use to get familiar with how a lens works. 
+The LDK creates a new lens project that comes with templates you can use to get familiar with how a lens works and and jump-start building your own new lens. 
 
 
 ### Install
@@ -68,15 +68,15 @@ npm run test
 
 ### Build
 
-Before you build your lens, you should update your lens project data in `./lens-name/package.json`.
+Before you build your lens, you should update your lens project data in `package.json` file in the project's root directory.
 
-Package up all your lens resources into `lens-name.zip` for deployment using the build script:
+Package up all your lens resources into zip file in the project's root directory for deployment using the build script:
 
 ```
 npm run build
 ```
 
-During the build process, webpack bundles up all the javascript files and dependencies required by `./lens-name/src/main.js` into `./lens-name/lens.js`, then that gets zipped up into `lens-name.zip` in your lens project along with `./lens-name/package.json`.
+During the build process, webpack bundles up all the javascript files and dependencies required by `main.js` file in `src` folder into `lens.js` file in the project's root directory, then that gets packaged into a zip file in your lens project along with `package.json` file.
 
 ### Deploy
-When you are ready to install your new lens into Refocus, upload `lens-name.zip` as your lens `library` file use the Refocus API (`/v1/lenses`) or Refocus UI.
+When you are ready to install your new lens into Refocus, upload your zip file as your lens `library` file use the Refocus API (`/v1/lenses`) or Refocus UI.

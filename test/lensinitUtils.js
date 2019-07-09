@@ -5,6 +5,7 @@
 const chai = require('chai');
 const path = require('path');
 const expect = chai.expect;
+const should = chai.should;
 const lensUtil = require('../src/lensinitUtils');
 const fs = require('fs-extra');
 const mock = require('mock-fs');
@@ -40,7 +41,7 @@ describe('lensinitUtils test > ', () => {
 
   describe('copy packages test > ', function () {
 
-    this.timeout(7000);
+    this.timeout(10000);
     const tempPath = path.resolve(process.cwd(), 'newlens');
     beforeEach(() => {
       //   fs.mkdirSync(tempPath);
@@ -69,7 +70,7 @@ describe('lensinitUtils test > ', () => {
     it('packages copied', (done) => {
       expect(fs.readdirSync('./newlens/node_modules')).to.be.empty;
       lensUtil.copyPackages();
-      expect(fs.readdirSync('./newlens/node_modules')).to.have.members(['chai', 'dateformat',
+      expect(fs.readdirSync('./newlens/node_modules')).to.include.members(['chai', 'dateformat',
         'eslint', 'express', 'gulp', 'jsdom',
         'mocha', 'rimraf', 'webpack']);
       done();
@@ -86,7 +87,7 @@ describe('lensinitUtils test > ', () => {
     //});
     //afterEach(() => mock.restore());
 
-    it('package.json created >', () => {
+    it('package.json created ', () => {
       expect(fs.existsSync('newlens/package.json')).to.be.false;
       lensUtil.setupPackageJson();
       expect(fs.existsSync('newlens/package.json')).to.be.true;
@@ -97,6 +98,7 @@ describe('lensinitUtils test > ', () => {
         'fs-extra',
         'handlebars',
         'handlebars-loader',
+        'istanbul',
         'jscs',
         'mock-fs', 'moment',
         'moment-timezone',
@@ -115,7 +117,7 @@ describe('lensinitUtils test > ', () => {
 
   });
 
-  describe('AddscriptsandDependencies', () => {
+  describe('AddscriptsandDependencies >', () => {
     let packageJson = {
       name: 'temp_lens',
       version: '1.0.0',
@@ -131,6 +133,7 @@ describe('lensinitUtils test > ', () => {
         'fs-extra',
         'handlebars',
         'handlebars-loader',
+        'istanbul',
         'jscs',
         'mock-fs', 'moment',
         'moment-timezone',

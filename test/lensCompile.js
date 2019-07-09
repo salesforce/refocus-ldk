@@ -15,7 +15,7 @@ describe('lens compile test >', function () {
   beforeEach(() => fs.remove(`./${projectname}`));
   afterEach(() => fs.remove(`./${projectname}`));
 
-  it('lens compile >', (done) => {
+  it('lens.js created', (done) => {
 
     //copy the example lens.js file into test folder
     //run lens compile script from Lenses/Example folder
@@ -26,9 +26,9 @@ describe('lens compile test >', function () {
     forkedProcess.on('close', () => {
       expect(fs.existsSync('./Lenses/Example/lens.js')).to.be.true;
       const fileNew = fs.readFileSync('./Lenses/Example/lens.js');
-      const fileTest = fs.readFileSync('./test/lensTest.js');
+      const fileTest = fs.readFileSync('./src/lensTest.js');
       expect(fileNew).to.not.be.null;
-      const statTest = fs.statSync('./test/lensTest.js');
+      const statTest = fs.statSync('./src/lensTest.js');
       const statNew = fs.statSync('./Lenses/Example/lens.js');
       const sizeTest = statTest.size;
       const sizeNew = statNew.size;
