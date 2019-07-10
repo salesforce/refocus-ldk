@@ -1,4 +1,12 @@
 /**
+ * Copyright (c) 2019, salesforce.com, inc.
+ * All rights reserved.
+ * Licensed under the BSD 3-Clause license.
+ * For full license text, see LICENSE.txt file in the repo root or
+ * https://opensource.org/licenses/BSD-3-Clause
+ */
+
+/**
  * test/lensinitUtils.js
  */
 
@@ -146,6 +154,41 @@ describe('lensinitUtils test > ', () => {
         'build',
         'prototype',
         'test');
+    });
+  });
+
+  describe('getAllDependencies >', () =>{
+    const dependencyTree = {
+      a: {
+        version: "1.0.0",
+        dependencies: {
+          f: {version: "1.0.0"},
+          g: {version: "1.0.0"},
+        },
+      },
+      b: { version: "1.0.0" },
+      c: {
+        version: "1.0.0",
+        dependencies: {
+          f: {version: "1.0.0"},
+          i: {
+            version: "1.0.0",
+            dependencies: {
+              k: {version: "1.0.0"},
+              m: {version: "1.0.0"},
+            },
+          },
+        }
+      },
+      d: { version: "1.0.0" },
+      e: { version: "1.0.0" },
+    };
+    const packagesNeeded = [ 'a', 'b', 'c'];
+
+    it('get all dependencies', () => {
+      const dep = lensUtil.getAllDependencies(packagesNeeded,dependencyTree);
+      let depArray = Array.from(dep);
+      expect(depArray).to.have.members([ 'a', 'b', 'c', 'f', 'g', 'i', 'k', 'm']);
     });
   });
 });

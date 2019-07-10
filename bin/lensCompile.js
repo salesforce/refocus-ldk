@@ -1,6 +1,14 @@
 #! /usr/bin/env node
 
 /**
+ * Copyright (c) 2019, salesforce.com, inc.
+ * All rights reserved.
+ * Licensed under the BSD 3-Clause license.
+ * For full license text, see LICENSE.txt file in the repo root or
+ * https://opensource.org/licenses/BSD-3-Clause
+ */
+
+/**
  * bin/lensCompile.js
  * */
 
@@ -83,8 +91,46 @@ function errorFunction (err,stats) {
 if (commander.watch) {
   compiler.watch({
     //watch options
-  }, errorFunction());
+  }, function(err,stats) {
+    if (err) {
+      console.error(err.stack || err);
+      if (err.details) {
+        console.log(err + ' details');
+        console.log(err.details);
+      }
+    }
+
+    const statInfo = stats.toJson();
+    if (stats.hasErrors()) {
+      console.log('Errors: ');
+      console.error(statInfo.errors);
+    }
+
+    if (stats.hasWarnings()) {
+      console.log('Warnings: ');
+      console.warn(statInfo.warnings);
+    }
+  });
 } else {
-  compiler.run(errorFunction());
+  compiler.run(function(err,stats) {
+    if (err) {
+      console.error(err.stack || err);
+      if (err.details) {
+        console.log(err + ' details');
+        console.log(err.details);
+      }
+    }
+
+    const statInfo = stats.toJson();
+    if (stats.hasErrors()) {
+      console.log('Errors: ');
+      console.error(statInfo.errors);
+    }
+
+    if (stats.hasWarnings()) {
+      console.log('Warnings: ');
+      console.warn(statInfo.warnings);
+    }
+  });
 }
 

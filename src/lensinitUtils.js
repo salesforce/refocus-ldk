@@ -1,4 +1,12 @@
 /**
+ * Copyright (c) 2019, salesforce.com, inc.
+ * All rights reserved.
+ * Licensed under the BSD 3-Clause license.
+ * For full license text, see LICENSE.txt file in the repo root or
+ * https://opensource.org/licenses/BSD-3-Clause
+ */
+
+/**
  * src/lensinitUtils.js
  *
  * Resources to create a new lens project
@@ -107,6 +115,7 @@ module.exports = {
     fs.appendFileSync(path.resolve(dir, 'src/lens.css'), '');
     return true;
   },
+  getAllDependencies,
 
   //Copy devDependencies of LDK
   copyPackages: () => {
@@ -148,5 +157,4 @@ module.exports = {
   },
 
   addScriptsAndDependencies,
-
 };
