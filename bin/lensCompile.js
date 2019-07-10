@@ -91,46 +91,11 @@ function errorFunction (err,stats) {
 if (commander.watch) {
   compiler.watch({
     //watch options
-  }, function(err,stats) {
-    if (err) {
-      console.error(err.stack || err);
-      if (err.details) {
-        console.log(err + ' details');
-        console.log(err.details);
-      }
-    }
-
-    const statInfo = stats.toJson();
-    if (stats.hasErrors()) {
-      console.log('Errors: ');
-      console.error(statInfo.errors);
-    }
-
-    if (stats.hasWarnings()) {
-      console.log('Warnings: ');
-      console.warn(statInfo.warnings);
-    }
+  }, function(err, stats){
+    errorFunction(err, stats)
   });
 } else {
-  compiler.run(function(err,stats) {
-    if (err) {
-      console.error(err.stack || err);
-      if (err.details) {
-        console.log(err + ' details');
-        console.log(err.details);
-      }
-    }
-
-    const statInfo = stats.toJson();
-    if (stats.hasErrors()) {
-      console.log('Errors: ');
-      console.error(statInfo.errors);
-    }
-
-    if (stats.hasWarnings()) {
-      console.log('Warnings: ');
-      console.warn(statInfo.warnings);
-    }
+  compiler.run(function(err, stats){
+    errorFunction(err, stats)
   });
 }
-
