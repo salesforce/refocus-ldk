@@ -28,6 +28,7 @@ The LDK creates a new lens project that comes with templates you can use to get 
 git clone https://github.com/salesforce/refocus-ldk.git
 cd refocus-ldk
 npm install
+npm link
 ```
 
 ### Create
@@ -55,7 +56,7 @@ npm run prototype
 In another terminal, also from your lens directory, automatically compile your code as you make changes so you can see the results in the browser immediately (just refresh http://localhost:3000).
 
 ```
-npm run compile --watch
+npm run watch
 ```
 
 ### Test

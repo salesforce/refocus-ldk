@@ -18,7 +18,7 @@ const webpack = require('webpack');
 const commander = require('commander');
 const process = require('process');
 const dir = process.cwd();
-const lensDir = path.resolve(dir, 'src/main.js');
+const lensDir = path.resolve(dir, 'src');
 
 /**
  * Webpack notes:
@@ -35,8 +35,9 @@ const lensDir = path.resolve(dir, 'src/main.js');
 commander.option('--watch').parse(process.argv);
 
 const compiler = webpack({
+  context: lensDir,
   entry: [
-    lensDir,
+    './main.js',
   ],
   output: {
     filename: 'lens.js',
@@ -64,6 +65,9 @@ const compiler = webpack({
   },
   plugins: {
   },
+  watchOptions: {
+    poll: true,
+  },
 });
 
 function errorFunction (err,stats) {
@@ -86,16 +90,29 @@ function errorFunction (err,stats) {
     console.log('Warnings: ');
     console.warn(statInfo.warnings);
   }
+
+  process.stdout.write(stats.toString({
+    colors: true,
+    modules: false,
+    children: false,
+    chunks: false,
+    chunkModules: false
+  }) + '\n\n');
 }
 
 if (commander.watch) {
-  compiler.watch({
+  const watcher = compiler.watch({
     //watch options
+    aggregateTimeout: 10000,
+    poll: true,
+    progress: true
   }, function(err, stats){
     errorFunction(err, stats)
   });
+
 } else {
   compiler.run(function(err, stats){
     errorFunction(err, stats)
   });
 }
+

@@ -33,6 +33,7 @@ const devPackagesToAdd = Object.keys(ldkDevDependencies);
 /* Scripts to add to new lens project */
 const scriptsToAdd = {
   compile: 'lens-compile',
+  watch: 'lens-compile --watch',
   zip: 'lens-zip',
   build: 'npm run compile && npm run zip',
   prototype: 'lens-prototype',
