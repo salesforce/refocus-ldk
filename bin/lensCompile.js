@@ -70,7 +70,7 @@ const compiler = webpack({
   },
 });
 
-function errorFunction (err,stats) {
+function errorFunction(err, stats) {
   //error-handling
   if (err) {
     console.error(err.stack || err);
@@ -96,7 +96,7 @@ function errorFunction (err,stats) {
     modules: false,
     children: false,
     chunks: false,
-    chunkModules: false
+    chunkModules: false,
   }) + '\n\n');
 }
 
@@ -105,14 +105,13 @@ if (commander.watch) {
     //watch options
     aggregateTimeout: 10000,
     poll: true,
-    progress: true
-  }, function(err, stats){
-    errorFunction(err, stats)
+    progress: true,
+  }, function (err, stats) {
+    errorFunction(err, stats);
   });
 
 } else {
-  compiler.run(function(err, stats){
-    errorFunction(err, stats)
+  compiler.run(function (err, stats) {
+    errorFunction(err, stats);
   });
 }
-

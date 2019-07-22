@@ -4,7 +4,7 @@
   "preset": "airbnb",
   "excludeFiles": [
     "node_modules/**",
-    "test/lensTest.js",
+    "src/lensTest.js",
     "public/ldkConfig.js",
     "public/ldk.js"
   ]

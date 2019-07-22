@@ -35,8 +35,8 @@ describe('lensinitUtils test > ', () => {
   }
 
   describe('create dir test > ', () => {
-    beforeEach(() => mock);
-    afterEach(() => mock.restore());
+    before(() => fs.remove('./newlens'));
+    //after(() => fs.remove('./newlens'));
 
     it('new directory created', () => {
       expect(fs.existsSync('./newlens')).to.be.false;
@@ -44,6 +44,14 @@ describe('lensinitUtils test > ', () => {
       expect(fs.existsSync('./newlens')).to.be.true;
       expect(fs.existsSync('./newlens/src/main.js')).to.be.true;
       expect(fs.existsSync('./newlens/src/lens.css')).to.be.true;
+      expect(fs.existsSync('./newlens/src/Utils.js')).to.be.true;
+      expect(fs.existsSync('./newlens/src/RealtimeChangeHandler.js')).to.be.true;
+      expect(fs.readFileSync('./newlens/src/main.js')).to.not.be.null;
+      expect(fs.readFileSync('./newlens/src/lens.css')).to.not.be.null;
+      expect(fs.readFileSync('./newlens/src/Utils.js')).to.not.be.null;
+      expect(fs.readFileSync('./newlens/src/RealtimeChangeHandler.js')).to.not.be.null;
+      expect(fs.existsSync('./newlens/test')).to.be.true;
+      expect(fs.existsSync('./newlens/template/loading.handlebars')).to.be.true;
     });
   });
 
@@ -118,6 +126,7 @@ describe('lensinitUtils test > ', () => {
         'zip',
         'build',
         'prototype',
+        'watch',
         'test');
       expect(fs.existsSync(`./newlens/README.md`)).to.be.true;
       expect(fs.readFileSync(`./newlens/README.md`)).to.not.be.null;
@@ -153,42 +162,43 @@ describe('lensinitUtils test > ', () => {
         'zip',
         'build',
         'prototype',
+        'watch',
         'test');
     });
   });
 
-  describe('getAllDependencies >', () =>{
+  describe('getAllDependencies >', () => {
     const dependencyTree = {
       a: {
-        version: "1.0.0",
+        version: '1.0.0',
         dependencies: {
-          f: {version: "1.0.0"},
-          g: {version: "1.0.0"},
+          f: { version: '1.0.0' },
+          g: { version: '1.0.0' },
         },
       },
-      b: { version: "1.0.0" },
+      b: { version: '1.0.0' },
       c: {
-        version: "1.0.0",
+        version: '1.0.0',
         dependencies: {
-          f: {version: "1.0.0"},
+          f: { version: '1.0.0' },
           i: {
-            version: "1.0.0",
+            version: '1.0.0',
             dependencies: {
-              k: {version: "1.0.0"},
-              m: {version: "1.0.0"},
+              k: { version: '1.0.0' },
+              m: { version: '1.0.0' },
             },
           },
-        }
+        },
       },
-      d: { version: "1.0.0" },
-      e: { version: "1.0.0" },
+      d: { version: '1.0.0' },
+      e: { version: '1.0.0' },
     };
-    const packagesNeeded = [ 'a', 'b', 'c'];
+    const packagesNeeded = ['a', 'b', 'c'];
 
     it('get all dependencies', () => {
-      const dep = lensUtil.getAllDependencies(packagesNeeded,dependencyTree);
+      const dep = lensUtil.getAllDependencies(packagesNeeded, dependencyTree);
       let depArray = Array.from(dep);
-      expect(depArray).to.have.members([ 'a', 'b', 'c', 'f', 'g', 'i', 'k', 'm']);
+      expect(depArray).to.have.members(['a', 'b', 'c', 'f', 'g', 'i', 'k', 'm']);
     });
   });
 });

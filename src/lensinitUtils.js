@@ -103,7 +103,7 @@ module.exports = {
     }
 
     [path.resolve(dir, 'src'), path.resolve(dir, 'test'),
-      path.resolve(dir, 'node_modules')].forEach(
+      path.resolve(dir, 'node_modules'), path.resolve(dir, 'template')].forEach(
       (d) => {
         fs.mkdirpSync(d, { recursive: true }, (err) => {
           if (err) throw new Error(err);
@@ -112,10 +112,19 @@ module.exports = {
     );
 
     fs.appendFileSync(path.resolve(dir, 'src/main.js'),
-      fs.readFileSync(path.resolve(__dirname, '../main.template'), 'utf8'));
-    fs.appendFileSync(path.resolve(dir, 'src/lens.css'), '');
+      fs.readFileSync(path.resolve(__dirname, '../template/main.template'), 'utf8'));
+    fs.appendFileSync(path.resolve(dir, 'src/lens.css'),
+      fs.readFileSync(path.resolve(__dirname, '../template/lens.template'), 'utf8'));
+    fs.appendFileSync(path.resolve(dir, 'src/Utils.js'),
+      fs.readFileSync(path.resolve(__dirname, '../template/util.template'), 'utf8'));
+    fs.appendFileSync(path.resolve(dir, 'src/RealtimeChangeHandler.js'),
+      fs.readFileSync(path.resolve(__dirname, '../template/realtime.template'), 'utf8'));
+    fs.appendFileSync(path.resolve(dir, 'template/loading.handlebars'),
+      fs.readFileSync(path.resolve(__dirname, '../template/loading.handlebars'), 'utf8'));
+
     return true;
   },
+
   getAllDependencies,
 
   //Copy devDependencies of LDK
