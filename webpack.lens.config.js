@@ -41,6 +41,7 @@ module.exports = {
         test: /\.handlebars$/,
         loader: 'handlebars-template-loader',
       },
+
       // {
       //   test: /\.handlebars$/,
       //   loader: 'handlebars-loader',

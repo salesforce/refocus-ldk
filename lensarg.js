@@ -32,6 +32,7 @@ module.exports = {
         console.log(error.noLens);
         process.exit(0);
       }
+
       const lensDir = path.join(__dirname, 'Lenses', lens);
       console.log(`*** lens=${lens}`);
       return {
@@ -39,5 +40,6 @@ module.exports = {
         dir: lensDir,
       };
     }
-  }
-}
+  },
+};
+

@@ -1,0 +1,51 @@
+/*
+* ./src/Utils.js
+*
+* Some general helper functions
+*/
+
+const util = require('util');
+const path = require('path');
+const fs = require('fs-extra');
+const process = require('process');
+
+module.exports = {
+
+  /* Suggested data structure:
+  *
+  * Subjects
+  * Samples
+  * Aspects
+  */
+
+  getDataStructure: function (node) {
+    let subjects = new Map();
+    let aspects = new Map();
+    let samples = new Map();
+
+    subjects.set(node.absolutePath, node);
+
+    if (node.samples) {
+      node.samples.forEach((sample) => {
+        sample.subjectId = node.id;
+        sample.subjectAbsolutePath = node.absolutePath;
+        samples.set(sample.name, sample);
+        aspects.set(sample.aspect.name, sample.aspect);
+      });
+    }
+
+    if (node.children) {
+      node.children.forEach(getDataStructure)
+    }
+
+    return [subjects, aspects, samples];
+  },
+
+  sortMap: function (map) {
+    const sorted = new Map();
+    const sortedKeys = Array.from(map.keys()).sort();
+    sortedKeys.forEach((key) => sorted.set(key, map.get(key)));
+    return sorted;
+  },
+
+};

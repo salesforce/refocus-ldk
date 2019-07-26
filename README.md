@@ -6,7 +6,6 @@ The Refocus Lens Developer Kit (LDK) is a toolkit for developing, testing and pa
 
 - [Introduction](#introduction)
 - [Install](#install)
-- [Configure](#configure)
 - [Create](#create)
 - [Implement](#implement)
 - [Prototype](#prototype)
@@ -20,7 +19,8 @@ The Refocus Lens Developer Kit (LDK) is a toolkit for developing, testing and pa
 
 The LDK lets you build and test a lens quickly and iteratively, *without* having to install it into a running Refocus application. The LDK also provides some dummy datasets and simulates realtime events so you can test how your lens handles hierarchy data and realtime events.
 
-The LDK comes with an "Example" lens pre-installed in the `./Lenses` directory--you can use this to get familiar with how a lens works or as a jumping-off point for developing your own lens.
+The LDK creates a new lens project that comes with templates you can use to get familiar with how a lens works and jump-start building your own new lens. 
+
 
 ### Install
 
@@ -28,44 +28,35 @@ The LDK comes with an "Example" lens pre-installed in the `./Lenses` directory--
 git clone https://github.com/salesforce/refocus-ldk.git
 cd refocus-ldk
 npm install
+npm link
 ```
-
-### Configure
-
-Since you can work on multiple lenses in the LDK, in this step you specify the name of the lens you want to work on (or create) right now.
-
-> **Note: All the other `npm run ...` scripts depend on this config setting!**
-
-```
-npm config set refocus-ldk:lens SuperDuperLens
-```
-
-> If you are working on multiple lenses and you aren't sure which lens you are currently using, you can run `npm config list | grep refocus-ldk:lens`.
 
 ### Create
 
-Create a basic directory structure with some starter files so you can get right into developing, testing and packaging your new lens.
+Create a basic directory structure with some starter files so you can get right into developing, testing and packaging your new lens. When naming your new lens, you should follow npm package naming conventions (which can 
+be found here https://github.com/npm/validate-npm-package-name).
 
 ```
-npm run create
+lens-init <lens-name>
 ```
 
 ### Implement
 
 See the [Lens Developer Guide](LensDeveloperGuide.md) for help, guidelines and reference materials.
 
+
 ### Prototype
 
-In one terminal, from your `refocus-ldk` directory, start the LDK-Prototyper, a local app server which renders your lens in a browser for rapid prototyping.
+In one terminal, from your lens directory, start the LDK-Prototyper, a local app server which renders your lens in a browser for rapid prototyping.
 
 ```
 npm run prototype
 ```
 
-In another terminal, also from your `refocus-ldk` directory, automatically compile your code as you make changes so you can see the results in the browser immediately (just refresh http://localhost:3000).
+In another terminal, also from your lens directory, automatically compile your code as you make changes so you can see the results in the browser immediately (just refresh http://localhost:3000).
 
 ```
-npm run compile-watch
+npm run watch
 ```
 
 ### Test
@@ -78,16 +69,15 @@ npm run test
 
 ### Build
 
-Before you build your lens, you should update your lens metadata in `./SuperDuperLens/lens.json`.
-Note: "lensEventApiVersion" currently defaults to 1.
+Before you build your lens, you should update your lens project data in `package.json` file in the project's root directory.
 
-Package up all your lens resources into `./dist/SuperDuperLens.zip` for deployment using the build script:
+Package up all your lens resources into zip file in the project's root directory for deployment using the build script:
 
 ```
 npm run build
 ```
 
-During the build process, webpack bundles up all the javascript files and dependencies required by `./SuperDuperLens/src/main.js` into `./SuperDuperLens/lens.js`, then that gets zipped up into `./dist/SuperDuperLens.zip` along with `./SuperDuperLens/lens.json`.
+During the build process, webpack bundles up all the javascript files and dependencies required by `main.js` file in `src` folder into `lens.js` file in the project's root directory, then that gets packaged into a zip file in your lens project along with `package.json` file.
 
 ### Deploy
-When you are ready to install your new lens into Refocus, upload `./dist/SuperDuperLens.zip` as your lens `library` file use the Refocus API (`/v1/lenses`) or Refocus UI.
+When you are ready to install your new lens into Refocus, upload your zip file as your lens `library` file use the Refocus API (`/v1/lenses`) or Refocus UI.

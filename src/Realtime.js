@@ -41,6 +41,7 @@ module.exports = class Realtime {
         });
       });
     }
+
     return retval;
   } // prepareSampleUpdates
 
@@ -61,6 +62,7 @@ module.exports = class Realtime {
         }
       });
     }
+
     return retval;
   } // prepareSampleAdds
 
@@ -81,6 +83,7 @@ module.exports = class Realtime {
         retval.push({ 'sample.remove': s });
       });
     }
+
     return retval;
   } // prepareSampleDeletes
 
@@ -98,6 +101,7 @@ module.exports = class Realtime {
         retval.push({ 'subject.add': s });
       });
     }
+
     return retval;
   } // prepareSubjectAdds
 
@@ -121,6 +125,7 @@ module.exports = class Realtime {
         });
       });
     }
+
     return retval;
   } // prepareSubjectUpdates
 
@@ -138,6 +143,7 @@ module.exports = class Realtime {
         retval.push({ 'subject.remove': s });
       });
     }
+
     return retval;
   } // prepareSubjectDeletes
 
