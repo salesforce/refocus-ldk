@@ -3,6 +3,7 @@ require('./lens.css');
 const Utils = require('./Utils.js');
 const RealtimeChangeHandler = require('./RealtimeChangeHandler.js');
 const loadingTemplate = require('./template/loading.handlebars');
+let loading;
 
 // TODO implement me!
 // Add any "require" statements to import modules here, e.g.:

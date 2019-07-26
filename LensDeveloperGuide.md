@@ -36,7 +36,6 @@ Use [Node.js `require`](https://nodejs.org/api/globals.html#globals_require) syn
 
 ## Best Practices
 
-* Add a `/lib` directory inside the lens's `/src` directory and keep all your external libraries there.
 * Isolate all your data manipulation and helper functions into separate modules with no DOM dependencies--this makes it super easy to reuse stuff (maybe even contribute commonly used stuff to the Lens Utility Library!) AND write straightforward unit tests which don't have to run in a browser context!
 * When your lens makes any changes to the DOM which require a repaint or reflow in the browser, wrap those changes in a call to  [window.requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) so the browser can schedule the execution in coordination with its next repaint.
 * Refocus will render a perspective overlay component in the upper left corner of the page, so don't put anything crucial up there. In the LDK protyper, we put the "Config" link in that same location ;)
@@ -77,8 +76,6 @@ This event is dispatched after the initial hierarchy data has completely downloa
 
 #### Event Payload
 
-TODO
-
 ### `refocus.lens.realtime.change`
 
 This event is dispatched by the Refocus server when any of the following changes occur:
@@ -93,7 +90,7 @@ This event is dispatched by the Refocus server when any of the following changes
 
 #### Recommended Usage
 
-1. Update the hierarchy (or your own data structure) based on each of the changes received. 
+1. Update the hierarchy (or your own data structure) based on each of the changes received in the `RealTimeEventHandler.js` file provided in the `src` folder. 
 1. Modify the DOM to re-render the visualization based on the changes.
 
 #### Event Payload
@@ -102,11 +99,11 @@ TODO
 
 Note: The array of changes in the event's `detail` attribute are sorted by time in ascending order--it is important to process them in that same order!
 
-## Lens Utility Library Reference
+## Lens Utility Functions and Templates
 
-The Lens Utility Library provides some functions which may be helpful to you as you implement your lens.
+The lens project is created with `Utils.js` file in `src` folder  populated with simple reference functions that may be helpful when you start implementing a new lens. 
 
-TODO
+You can also find `template` folder in the lens project directory with "Loading..." handlebars template to serve as an example. You can keep other templates you're using in this folder. 
 
 ## Writing Unit Tests
 
