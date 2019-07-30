@@ -32,7 +32,11 @@ describe('lens init test>', function () {
       expect(fs.existsSync(`./${projectname}/src/main.js`)).to.be.true;
       expect(fs.readFileSync(`./${projectname}/src/main.js`)).to.not.be.null;
       expect(fs.existsSync(`./${projectname}/src/lens.css`)).to.be.true;
-
+      expect(fs.existsSync(`./${projectname}/src/Utils.js`)).to.be.true;
+      expect(fs.existsSync(`./${projectname}/src/RealtimeChangeHandler.js`)).to.be.true;
+      expect(fs.existsSync(`./${projectname}/test/SampleTest.js`)).to.be.true;
+      expect(fs.existsSync(`./${projectname}/test/SampleUtilTest.js`)).to.be.true;
+      expect(fs.existsSync(`./${projectname}/test/sample-json.json`)).to.be.true;
       /* copyPackages */
 
       expect(fs.existsSync(`./${projectname}/node_modules`)).to.be.true;
