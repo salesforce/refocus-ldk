@@ -1,0 +1,114 @@
+/*
+* ./test/SampleTest.js
+*
+* Starter test file for RealtimeChangeHandler.js
+*/
+
+const expect = require('chai').expect;
+const RealtimeChangeHandler = require('../src/RealtimeChangeHandler');
+const util = require('../src/Utils');
+let subjectMap = new Map();
+let sampleMap = new Map();
+let aspectMap = new Map();
+const sampleData = {
+  "absolutePath": "sampleData",
+  "childCount": 2,
+  "name": "sampleData",
+  "id": "",
+  "children": [
+    {
+      "absolutePath": "sampleData.L1",
+      "childCount": 1,
+      "name": "L1",
+      "children": [
+        {
+          "absolutePath": "sampleData.L1.a1",
+          "name": "a1",
+          "samples": [
+            {
+              "name": "sampleData.L1.a1|sample1.1",
+              "status": "OK",
+              "aspect": {
+                "name": "sample1.1",
+                "tags": ["Tag1", "Tag2", "Tag3"]
+              }
+            },
+            {
+
+              "name": "sampleData.L1.a1|sample1.2",
+              "status": "Critical",
+              "aspect": {
+                "name": "sample1.2",
+                "tags": ["Tag1", "Tag2", "Tag3"]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "absolutePath": "sampleData.L2",
+      "childCount": 1,
+      "name": "L2",
+      "children": [
+        {
+          "absolutePath": "sampleData.L2.a2",
+          "name": "a2",
+          "samples": [
+            {
+              "name": "sampleData.L2.a2|sample2.1",
+              "status": "OK",
+              "aspect": {
+                "name": "sample2.1",
+                "tags": ["Tag1", "Tag2", "Tag3"]
+              }
+            },
+            {
+
+              "name": "sampleData.L2.a2|sample2.2",
+              "status": "Critical",
+              "aspect": {
+                "name": "sample2.2",
+                "tags": ["Tag1", "Tag2", "Tag3"]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+};
+
+// Here is an example showing how you can test RealtimeChangeHandler.js functions 
+// For each describe block, you can define an event flow to see if real time
+// changes are handled correctly. In the example below, update and remoce functions are tested.
+
+describe('./test/SampleTest.js handle: onSampleUpdate and onSampleRemove >', () => {
+  it('onSampleAdd should be called for a sample update', () => {
+    const newSample = { name: 'NewSample|NewAddition', status: 'OK',
+      aspect: { name: 'NewAddition'} };
+    const chg = {'sample.update' : newSample };
+    
+    RealtimeChangeHandler.handle(chg, sampleData);
+    
+    const maps = util.getDataStructure(sampleData);
+    sampleMap = maps[1];
+    
+    expect(Array.from(sampleMap.keys())).to.have.members(["sampleData.L2.a2|sample2.2","sampleData.L2.a2|sample2.1",
+      "sampleData.L1.a1|sample1.2","sampleData.L1.a1|sample1.1", "NewSample|NewAddition"]);
+  });
+
+  it('onSampleRemove should be called for removing sample', () => {
+    const removeSample = { name: 'NewSample|NewAddition', status: 'OK',
+      aspect: { name: 'NewAddition'} };
+    const chg = {'sample.remove' : removeSample };
+    RealtimeChangeHandler.handle(chg, sampleData);
+
+    const maps = util.getDataStructure(sampleData);
+    sampleMap = maps[1];
+    
+    expect(Array.from(sampleMap.keys())).to.have.members(["sampleData.L2.a2|sample2.2","sampleData.L2.a2|sample2.1",
+      "sampleData.L1.a1|sample1.2","sampleData.L1.a1|sample1.1"]);
+
+  });
+})

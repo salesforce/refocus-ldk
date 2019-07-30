@@ -107,4 +107,6 @@ You can also find `template` folder in the lens project directory with "Loading.
 
 ## Writing Unit Tests
 
-TODO
+To help you write unit tests for your new lens, the lens project is created with two sample unit tests that use `mocha` and `chai` in the inside `test` folder. 
+
+`SampleTest.js` is provided to serve as an example on how to test real time change functions and `SampleUtilTest.js` is for testing utility functions in `Utils.js`.

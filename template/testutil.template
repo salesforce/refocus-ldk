@@ -14,7 +14,7 @@ let sampleMap = new Map();
 let aspectMap = new Map();
 
 //Here is a sample JSON string you can use to test your Util functions.
-//You can change the
+//You can change the hierarchy depth and elements depending on what you want to test!
 
 const sampleJson = {
 	"absolutePath": "sampleData",
@@ -87,7 +87,9 @@ const sampleJson = {
 
 describe('Sample Test for Utils.js> ', () => {
 
-  //For each function you use in Utils.js you can create a specific test
+  // For each function you use in Utils.js you can create a specific test
+  // Here is an example to check if our Utils.js functions are processing the sample data correctly:
+
   it('getDataStructure', () =>{
   	const maps = u.getDataStructure(sampleJson);
   	subjectMap = maps[0];
