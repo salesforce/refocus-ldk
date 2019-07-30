@@ -4,60 +4,69 @@
 * Handle each type of change by updating the data accordingly
 */
 
-const util = require('./Utils.js')
-let sampleMap = new Map();
-let subjectMap = new Map();
-let aspectMap = new Map();
-
-
-function onSampleRemove(sample, data) {
+function onSampleRemove(sample) {
 	console.log(new Date(), 'onSampleRemove', sample);
 	// TODO implement me!
 	// For example, you may need to preprocess and remove this sample from some
 	// data structure. Here is an example using the data structure provided in Utils.js:
 
-  const maps = util.getDataStructure(data);
-  sampleMap = maps[1];
-  sampleMap.delete(sample.name);
-
 }
 
-function onSampleUpdate(change, data) {
+function onSampleUpdate(change) {
 	console.log(new Date(), 'onSampleUpdate', change);
 	// TODO implement me!
 	// You may need to preprocess and update this sample in some
 	// data structure. Here is an example on how to use the data structure
   // provided in Utils.js:
 
-  const maps = util.getDataStructure(data);
-  sampleMap = maps[1];
-  if(!sampleMap.has(change.name)){
-     sampleMap.set(change.name, change);
    }
 }
 
-function onSampleAdd(sample, data) {
+function onSampleAdd(sample) {
   console.log(new Date(), 'onSampleAdd', sample);
   //TODO implement me!
   //For example, you may need to preprocess and add this new sample to some
   //data structure.
 }
 
-function onSubjectAdd(subject, data) {
+function onSampleAdd(sample) {
+	console.log(new Date(), 'onSampleAdd', sample);
+
+	//TODO implement me!
+	//For example, you may need to preprocess and add this new sample to some
+	//data structure.
+ }
+
+function onSampleRemove(sample) {
+	console.log(new Date(), 'onSampleRemove', sample);
+	// TODO implement me!
+	// For example, you may need to preprocess and remove this sample from some
+	// data structure.
+}
+
+function onSampleUpdate(change) {
+	console.log(new Date(), 'onSampleUpdate', change);
+	// TODO implement me!
+	// For example, you may need to preprocess and update this sample in some
+	// data structure.
+}
+
+function onSubjectAdd(subject) {
 	console.log(new Date(), 'onSubjectAdd', subject);
 	// TODO implement me!
 	// For example, you may need to preprocess and add this new subject to some
 	// data structure.
 }
 
-function onSubjectRemove(subject, data) {
+function onSubjectRemove(subject) {
 	console.log(new Date(), 'onSubjectRemove', subject);
 	// TODO implement me!
 	// For example, you may need to preprocess and remove this subject from
 	// some data structure.
 }
 
-function onSubjectUpdate(change, data) {
+
+function onSubjectUpdate(change) {
 	console.log(new Date(), 'onSubjectUpdate', change);
 	// TODO implement me!
 	// For example, you may need to preprocess and update this subject in some
@@ -65,19 +74,20 @@ function onSubjectUpdate(change, data) {
 }
 
 module.exports = {
-	handle: function (chg, data) {
+
+	handle: function (chg) {
 		if (chg['sample.add']) {
-          onSampleAdd(chg['sample.add'], data)
+          onSampleAdd(chg['sample.add'])
         } else if (chg['sample.remove']) {
-          onSampleRemove(chg['sample.remove'], data)
+          onSampleRemove(chg['sample.remove'])
         } else if (chg['sample.update']) {
-          onSampleUpdate(chg['sample.update'],data);
+          onSampleUpdate(chg['sample.update']);
         } else if (chg['subject.add']) {
-          onSubjectAdd(chg['subject.add'], data)
+          onSubjectAdd(chg['subject.add'])
         } else if (chg['subject.remove']) {
-          onSubjectRemove(chg['subject.remove'], data)
+          onSubjectRemove(chg['subject.remove'])
         } else if (chg['subject.update']) {
-          onSubjectUpdate(chg['subject.update'], data)
+          onSubjectUpdate(chg['subject.update'])
         }
 	},
 };
