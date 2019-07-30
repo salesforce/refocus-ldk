@@ -53,6 +53,7 @@ describe('lensinitUtils test > ', () => {
       expect(fs.existsSync('./newlens/test')).to.be.true;
       expect(fs.existsSync('./newlens/test/SampleUtilTest.js')).to.be.true;
       expect(fs.existsSync('./newlens/test/SampleTest.js')).to.be.true;
+      expect(fs.existsSync('./newlens/test/sample-json.json')).to.be.true;
       expect(fs.existsSync('./newlens/template/loading.handlebars')).to.be.true;
     });
   });
