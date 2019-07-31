@@ -7,28 +7,10 @@
 const util = require('util');
 const path = require('path');
 const fs = require('fs-extra');
-const process = require('process');
-
 let subjects = new Map();
 let aspects = new Map();
 let samples = new Map();
 
-function processNode(node){
-    subjects.set(node.absolutePath, node);
-
-        if (node.samples) {
-          node.samples.forEach((sample) => {
-            sample.subjectId = node.id;
-            sample.subjectAbsolutePath = node.absolutePath;
-            samples.set(sample.name, sample);
-            aspects.set(sample.aspect.name, sample.aspect);
-          });
-        }
-
-        if (node.children) {
-          node.children.forEach(processNode)
-        }
-}
 
 module.exports = {
 
@@ -39,9 +21,26 @@ module.exports = {
   * Aspects
   */
 
-  getDataStructure: function (node) {
-    processNode(node);
-        return [subjects, samples, aspects];
+  processNode: function processNode(node) {
+    subjects.set(node.absolutePath, node);
+    if (node.samples) {
+      node.samples.forEach((sample) => {
+        sample.subjectId = node.id;
+        sample.subjectAbsolutePath = node.absolutePath;
+        samples.set(sample.name, sample);
+        aspects.set(sample.aspect.name, sample.aspect);
+      });
+    }
+
+    if (node.children) {
+      node.children.forEach(processNode)
+    }
+
+    node.samples = samples;
+    node.subjects = subjects;
+    node.aspects = aspects;
+
+    return node;
   },
 
   sortMap: function (map) {

@@ -6,8 +6,6 @@ const loadingTemplate = require('./template/loading.handlebars');
 let loading;
 let data;
 
-
-
 // TODO implement me!
 // Add any "require" statements to import modules here, e.g.:
 //   const d3 = require('./d3.v3.min');
@@ -23,6 +21,7 @@ function preprocess(hierarchy) {
   // TODO implement me!
   // For example, you may want to manipulate the hierarchy and store it in
   // some data structure.
+  data = Utils.processNode(hierarchy);
 } // preprocess
 
 /**
@@ -55,8 +54,7 @@ const eventHandler = {
      */
     'refocus.lens.hierarchyLoad': (evt) => {
       console.log(new Date(), '#lens => refocus.lens.hierarchyLoad');
-      data = evt.detail;
-      preprocess(data);
+      preprocess(evt.detail);
       draw();
     }, // refocus.lens.hierarchyLoad
 

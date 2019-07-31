@@ -6,6 +6,7 @@
 
 const chai = require('chai');
 const expect = chai.expect;
+const fs = require('fs-extra');
 chai.use(require("chai-sorted"));
 const u = require('../src/Utils.js');
 
@@ -13,101 +14,31 @@ let subjectMap = new Map();
 let sampleMap = new Map();
 let aspectMap = new Map();
 
-//Here is a sample JSON string you can use to test your Util functions.
-//You can change the hierarchy depth and elements depending on what you want to test!
+// Here is the sample data you can use to test your Util functions.
+// This data is also used to prototype your new lens.
 
-const sampleJson = {
-	"absolutePath": "sampleData",
-	"childCount": 2,
-	"name": "sampleData",
-  "id": "",
-	"children": [
-		{
-			"absolutePath": "sampleData.L1",
-			"childCount": 1,
-			"name": "L1",
-			"children": [
-			{
-				"absolutePath": "sampleData.L1.a1",
-				"name": "a1",
-				"samples": [
-				{
-					"name": "sampleData.L1.a1|sample1.1",
-					"status": "OK",
-					"aspect": {
-						"name": "sample1.1",
-						"tags": ["Tag1", "Tag2", "Tag3"]
-					}
-				},
-				{
-
-					"name": "sampleData.L1.a1|sample1.2",
-					"status": "Critical",
-					"aspect": {
-						"name": "sample1.2",
-						"tags": ["Tag1", "Tag2", "Tag3"]
-					}
-				}
-				]
-			}
-			]
-		},
-		{
-			"absolutePath": "sampleData.L2",
-			"childCount": 1,
-			"name": "L2",
-			"children": [
-			{
-				"absolutePath": "sampleData.L2.a2",
-				"name": "a2",
-				"samples": [
-				{
-					"name": "sampleData.L2.a2|sample2.1",
-					"status": "OK",
-					"aspect": {
-						"name": "sample2.1",
-						"tags": ["Tag1", "Tag2", "Tag3"]
-					}
-				},
-				{
-
-					"name": "sampleData.L2.a2|sample2.2",
-					"status": "Critical",
-					"aspect": {
-						"name": "sample2.2",
-						"tags": ["Tag1", "Tag2", "Tag3"]
-					}
-				}
-				]
-			}
-			]
-		},
-	]
-}
+const sampleData = JSON.parse(fs.readFileSync('./test/weatherByCountry.json'));
 
 describe('Sample Test for Utils.js> ', () => {
 
   // For each function you use in Utils.js you can create a specific test
   // Here is an example to check if our Utils.js functions are processing the sample data correctly:
 
-  it('getDataStructure', () =>{
-  	const maps = u.getDataStructure(sampleJson);
-  	subjectMap = maps[0];
-  	sampleMap = maps[1];
-  	aspectMap = maps[2];
-    expect(Array.from(subjectMap.keys())).to.have.members(["sampleData", "sampleData.L1","sampleData.L1.a1",
-      "sampleData.L2", "sampleData.L2.a2"]);
-  	expect(Array.from(sampleMap.keys())).to.have.members(["sampleData.L2.a2|sample2.2","sampleData.L2.a2|sample2.1",
-      "sampleData.L1.a1|sample1.2","sampleData.L1.a1|sample1.1"]);
-    expect(Array.from(aspectMap.keys())).to.have.members(["sample1.1", "sample1.2", "sample2.1", "sample2.2"]);
+  it('processNode should contain all the aspects', () =>{
+  	const node = u.processNode(sampleData);
+  	subjectMap = node.subjects;
+  	sampleMap = node.samples;
+  	aspectMap = node.aspects;
+
+    expect(Array.from(aspectMap.keys())).to.have.members(["rfx-Humidity", "rfx-TooCold", "rfx-TooHot", "rfx-WindSpeed", "rfx-Snowfall", "rfx-Rainfall"]);
 
   });
 
-  it('sortMap', () => {
-    const maps = u.getDataStructure(sampleJson);
-    subjectMap = maps[0];
-    sampleMap = maps[1];
-    aspectMap = maps[2];
+  it('sortMap should sort subjectMap', () => {
+    const node = u.processNode(sampleData);
+    subjectMap = node.subjects;
+    sampleMap = node.samples;
+    aspectMap = node.aspects;
     const sortedSubject = u.sortMap(subjectMap);
     expect(Array.from(sortedSubject.keys())).to.be.sorted();
 
