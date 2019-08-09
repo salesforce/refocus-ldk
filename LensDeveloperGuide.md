@@ -40,7 +40,8 @@ Use [Node.js `require`](https://nodejs.org/api/globals.html#globals_require) syn
 * When your lens makes any changes to the DOM which require a repaint or reflow in the browser, wrap those changes in a call to  [window.requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) so the browser can schedule the execution in coordination with its next repaint.
 * Refocus will render a perspective overlay component in the upper left corner of the page, so don't put anything crucial up there. In the LDK protyper, we put the "Config" link in that same location ;)
 * Every lens must be generic--you must not hard-code any references to data like tag names or subject names or aspect names.
-
+* When you want to use other node packages in your lens project, you can add these as a dependency in your `package.json` file and run `npm install` from your project directory in terminal to download these packages in your `node_modules` folder. 
+* For testing purposes, new lens project is created with `weatherByCountry.json`, the same dataset used during prototyping. 
 ## Realtime Event Reference
 
 ### `refocus.lens.load`

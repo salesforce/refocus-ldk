@@ -103,8 +103,8 @@ function errorFunction(err, stats) {
 if (commander.watch) {
   const watcher = compiler.watch({
     //watch options
-    aggregateTimeout: 10000,
-    poll: true,
+    aggregateTimeout: 1000,
+    poll: 1000,
     progress: true,
   }, function (err, stats) {
     errorFunction(err, stats);

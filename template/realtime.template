@@ -12,7 +12,7 @@ function onSampleRemove(sample, data) {
 	// TODO implement me!
 	// For example, you may need to preprocess and remove this sample from some
 	// data structure.
-  let node = util.processNode(data);
+	let node = util.processNode(data);
 
 }
 
@@ -21,15 +21,15 @@ function onSampleUpdate(change, data) {
 	// TODO implement me!
 	// You may need to preprocess and update this sample in some
 	// data structure.
-  let node = util.processNode(data);
+	let node = util.processNode(data);
 }
 
 function onSampleAdd(sample, data) {
-  console.log(new Date(), 'onSampleAdd', sample);
-  //TODO implement me!
-  //For example, you may need to preprocess and add this new sample to some
-  //data structure.
-  let node = util.processNode(data);
+    console.log(new Date(), 'onSampleAdd', sample);
+    //TODO implement me!
+    //For example, you may need to preprocess and add this new sample to some
+    //data structure.
+    let node = util.processNode(data);
 }
 
 function onSubjectAdd(subject, data) {
