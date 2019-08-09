@@ -8,6 +8,16 @@ const util = require('util');
 const path = require('path');
 const fs = require('fs-extra');
 
+/*
+* ./src/Utils.js
+*
+* Some general helper functions
+*/
+
+const util = require('util');
+const path = require('path');
+const fs = require('fs-extra');
+
 module.exports = {
 
   /* Suggested data structure:
@@ -18,7 +28,7 @@ module.exports = {
   */
 
   processNode: function processNode(node) {
-    let data = {samples: new Map(), aspects: new Map(), subjects: new Map()}
+    const data = {samples: new Map(), aspects: new Map(), subjects: new Map()}
     data.subjects.set(node.absolutePath, node);
     if (node.samples) {
       node.samples.forEach((sample) => {
@@ -30,9 +40,15 @@ module.exports = {
     }
 
     if (node.children) {
-      node.children.forEach(processNode)
+      node.children.forEach( (n) => {
+        const retval = processNode(n);
+        retval.samples.forEach((sample) => {
+          data.samples.set(sample.name, sample);
+          data.aspects.set(sample.aspect.name, sample.aspect); });
+        retval.subjects.forEach((subject) => {
+          data.subjects.set(subject.absolutePath, subject); });
+      });
     }
-
     return data;
   },
 
