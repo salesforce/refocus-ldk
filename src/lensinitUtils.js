@@ -121,7 +121,12 @@ module.exports = {
       fs.readFileSync(path.resolve(__dirname, '../template/realtime.template'), 'utf8'));
     fs.appendFileSync(path.resolve(dir, 'template/loading.handlebars'),
       fs.readFileSync(path.resolve(__dirname, '../template/loading.handlebars'), 'utf8'));
-
+    fs.appendFileSync(path.resolve(dir, 'test/SampleUtilTest.js'),
+      fs.readFileSync(path.resolve(__dirname, '../template/testutil.template'), 'utf8'));
+    fs.appendFileSync(path.resolve(dir, 'test/SampleRealtimeTest.js'),
+      fs.readFileSync(path.resolve(__dirname, '../template/testsample.template'), 'utf8'));
+    fs.appendFileSync(path.resolve(dir, 'test/weatherByCountry.json'),
+      fs.readFileSync(path.resolve(__dirname, '../public/datasets/weatherByCountry.json'), 'utf8'));
     return true;
   },
 

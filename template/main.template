@@ -3,6 +3,8 @@ require('./lens.css');
 const Utils = require('./Utils.js');
 const RealtimeChangeHandler = require('./RealtimeChangeHandler.js');
 const loadingTemplate = require('./template/loading.handlebars');
+let loading;
+let data;
 
 // TODO implement me!
 // Add any "require" statements to import modules here, e.g.:
@@ -19,6 +21,7 @@ function preprocess(hierarchy) {
   // TODO implement me!
   // For example, you may want to manipulate the hierarchy and store it in
   // some data structure.
+  data = Utils.processNode(hierarchy);
 } // preprocess
 
 /**
@@ -67,7 +70,7 @@ const eventHandler = {
       if (Array.isArray(evt.detail) || evt.detail.length > 0) {
         evt.detail.forEach((chg) => {
             try {
-                RealtimeChangeHandler.handle(chg);
+                RealtimeChangeHandler.handle(chg, data);
             } catch (err) {
                 console.error(err);
             }

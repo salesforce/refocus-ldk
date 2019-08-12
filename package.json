@@ -7,8 +7,6 @@
   "description": "Refocus Lens Developer Kit",
   "scripts": {
     "build": "npm run compile && npm run zip",
-    "compile": "webpack --config webpack.lens.config.js --progress --colors --optimize-dedupe",
-    "compile-watch": "webpack --config webpack.lens.config.js --progress --colors --watch",
     "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- --recursive ./test/*.js",
     "create": "gulp create --lens=$npm_package_config_lens",
     "jscs": "./node_modules/jscs/bin/jscs *.js test bin src",
