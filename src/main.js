@@ -14,7 +14,7 @@ const cookies = require('cookie-jeep');
 const Realtime = require('./Realtime');
 
 let urlParams;
-(window.onpopstate = function() {
+(window.onpopstate = function () {
   function decode(s) {
     const pl = /\+/g;  // Regex for replacing addition symbol with a space
     return decodeURIComponent(s.replace(pl, ' '));
@@ -71,7 +71,7 @@ cookies.write('ldk-conf', JSON.stringify(conf));
  */
 (function hierarchyLoad() {
   const x = new XMLHttpRequest();
-  x.onreadystatechange = function() {
+  x.onreadystatechange = function () {
     if (x.readyState == 4 && x.status == 200) {
       const hierarchy = x.responseText;
       console.log('ldk.hierarchyLoad', new Date(),
