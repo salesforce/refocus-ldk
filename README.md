@@ -2,6 +2,8 @@
 
 ## Refocus Lens Developer Kit
 
+Note: this repository is infrequently maintained.
+
 The Refocus Lens Developer Kit (LDK) is a toolkit for developing, testing and packaging [Refocus](https://github.com/salesforce/refocus) lenses for deployment.
 
 - [Introduction](#introduction)
