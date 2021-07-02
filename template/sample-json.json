@@ -1,0 +1,68 @@
+{
+	"absolutePath": "sampleData",
+	"childCount": 2,
+	"name": "sampleData",
+  "id": "",
+	"children": [
+		{
+			"absolutePath": "sampleData.L1",
+			"childCount": 1,
+			"name": "L1",
+			"children": [
+			{
+				"absolutePath": "sampleData.L1.a1",
+				"name": "a1",
+				"samples": [
+				{
+					"name": "sampleData.L1.a1|sample1.1",
+					"status": "OK",
+					"aspect": {
+						"name": "sample1.1",
+						"tags": ["Tag1", "Tag2", "Tag3"]
+					}
+				},
+				{
+
+					"name": "sampleData.L1.a1|sample1.2",
+					"status": "Critical",
+					"aspect": {
+						"name": "sample1.2",
+						"tags": ["Tag1", "Tag2", "Tag3"]
+					}
+				}
+				]
+			}
+			]
+		},
+		{
+			"absolutePath": "sampleData.L2",
+			"childCount": 1,
+			"name": "L2",
+			"children": [
+			{
+				"absolutePath": "sampleData.L2.a2",
+				"name": "a2",
+				"samples": [
+				{
+					"name": "sampleData.L2.a2|sample2.1",
+					"status": "OK",
+					"aspect": {
+						"name": "sample2.1",
+						"tags": ["Tag1", "Tag2", "Tag3"]
+					}
+				},
+				{
+
+					"name": "sampleData.L2.a2|sample2.2",
+					"status": "Critical",
+					"aspect": {
+						"name": "sample2.2",
+						"tags": ["Tag1", "Tag2", "Tag3"]
+					}
+				}
+				]
+			}
+			]
+		},
+	]
+}

@@ -1,0 +1,44 @@
+/**
+ * lens.css
+ *
+ * The stylesheet for the new lens.
+ * All rules should be prefixed by #lens
+ */
+
+#lens {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 40px 1em;
+  max-width: 1500px;
+}
+
+#lens #loading {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+}
+
+#lens .status-OK {
+  color: green;
+}
+
+#lens .status-Info {
+  color: blue;
+}
+
+#lens .status-Warning {
+  color: yellow;
+}
+
+#lens .status-Critical {
+  color: red;
+}
+
+#lens .status-Timeout {
+  color: gray;
+}
+
+#lens .status-Invalid {
+  color: gray;
+}
